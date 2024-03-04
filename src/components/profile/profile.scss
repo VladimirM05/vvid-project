@@ -1,0 +1,25 @@
+.profile {
+	box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
+	background-color: rgba($color: #fff, $alpha: .75);
+	width: 480px;
+	right: 16px;
+	top: 64px;
+	height: 360px;
+	border-radius: 18px;
+	position: fixed;
+	backdrop-filter: blur(20px);
+	animation: user__profile ease-out .3s;
+}
+
+@keyframes user__profile {
+	0% {
+		right: -480px;
+	}
+	100% {
+		right: 16px;
+	}
+}
+
+.disp {
+	display: none;
+}

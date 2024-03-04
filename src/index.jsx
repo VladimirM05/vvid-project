@@ -4,4 +4,3 @@ import Main from "./Main";
 
 const wrapperElement = ReactDOMClient.createRoot(document.querySelector('.wrapper'));
 wrapperElement.render(<Main />);
-

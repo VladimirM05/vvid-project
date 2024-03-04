@@ -1,43 +1,43 @@
-import "./header.css";
+import "./header.scss";
+import person from "../../app/images/person.svg";
+import Profile from "../profile/Profile";
 
 export default function Header() {
 	return (
-		<header class="header">
-			<div class="header__inner">
-				<div class="header__box">
-					<a class="logo" href="#">
+		<header className="header">
+			<div className="header__inner">
+				<div className="header__box">
+					<a className="logo" href="#">
 						Σigma
 					</a>
-					<ul class="menu__list">
-						<li class="menu__item">
-							<a class="menu__link" href="#">
+					<ul className="menu__list">
+						<li className="menu__item">
+							<a className="menu__link" href="#">
 								Main
 							</a>
 						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
+						<li className="menu__item">
+							<a className="menu__link" href="#">
 								Clicker
 							</a>
 						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
+						<li className="menu__item">
+							<a className="menu__link" href="#">
 								Market
 							</a>
 						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
+						<li className="menu__item">
+							<a className="menu__link" href="#">
 								Rating
 							</a>
 						</li>
 					</ul>
-					<div class="user">
-						<img class="user__profile" src="../src/app/images/person-circle-outline.svg"></img>
-						<button class="user__login">Login</button>
+					<div className="user">
+						<img className="user__profile" src={person}></img>
+						<button className="user__login">Login</button>
 					</div>
 				</div>
-			</div>
-			<div class="profile disp">
-
+				<Profile />
 			</div>
 		</header>
 	);
