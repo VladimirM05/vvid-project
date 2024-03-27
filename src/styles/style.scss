@@ -1,0 +1,81 @@
+@import url('//fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('//fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('//fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@font-face {
+  font-family: 'Yandex Bold';
+  src: url(../app/fonts/yandex/YandexSansDisplay-Bold.ttf) format('ttf'), url(../app/fonts/yandex/YandexSansDisplay-Bold.woff) format('woff');
+	font-weight: 700;
+	//font-style: italic;
+}
+
+@font-face {
+  font-family: 'Yandex Regular';
+  src: url(../app/fonts/yandex/YandexSansDisplay-Regular.ttf) format('ttf'), url(../app/fonts/yandex/YandexSansDisplay-Regular.woff) format('woff');
+	font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Yandex Regular';
+  src: url(../app/fonts/yandex/YandexSansText-Medium.ttf) format('ttf'), url(../app/fonts/yandex/YandexSansText-Medium.woff) format('woff');
+	font-weight: 500;
+}
+
+// @font-face {
+//   font-family: 'Shototam';
+//   src: url(/yoursite/fonts/st-Italic.ttf) format('ttf'), url(/yoursite/fonts/st-Italic.woff) format('woff');
+//   font-style: italic;
+//   font-weight: 400;
+// }
+
+// @font-face {
+//   font-family: 'Shototam';
+//   src: url(/yoursite/fonts/st-Bold.ttf) format('ttf'), url(/yoursite/fonts/st-Bold.woff) format('woff');
+//   font-weight: 700;
+// }
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+	font-size: 18px;
+	height: 100vh;
+	font-family: 'Yandex Medium', sans-serif;
+	background-image: url('../../src/app/images/minimalizm.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	ul {
+		list-style-type: none;
+	}
+
+	button {
+		background: none;
+		border: none;
+		font-family: 'Poppins', sans-serif;
+		font-weight: 500;
+		cursor: pointer;
+		font-size: 20px;
+	}
+
+	.container {
+		max-width: 1240px;
+		padding: 0 20px;
+		margin: 0 auto;
+	}
+}

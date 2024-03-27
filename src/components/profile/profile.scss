@@ -1,24 +1,99 @@
 .profile {
 	box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
-	background-color: rgba($color: #fff, $alpha: .75);
-	width: 480px;
 	right: 16px;
 	top: 64px;
-	height: 360px;
 	border-radius: 18px;
 	position: fixed;
+	background-color: rgba(255, 255, 255, .75);
 	backdrop-filter: blur(20px);
-	animation: user__profile ease-out .3s;
+
+	.profile-inner {
+		padding: 16px;
+		gap: 16px;
+		display: flex;
+
+		.user {
+
+			.user-img {
+				display: block;
+				height: 192px;
+				width: 192px;
+				border-radius: 50%;
+				margin-bottom: 8px;
+				cursor: pointer;
+			}
+
+			.user-btn {
+				width: 100%;
+				border-radius: 15px;
+				height: 30px;
+				font-size: 18px;
+				background: linear-gradient(90deg, #f598a8, #f6edb2);
+
+				&:hover {
+					box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
+				}
+			}
+		}
+
+		.user-data {	
+			.user-names {
+				display: flex;
+				font-size: 20px;
+				gap: 0 8px;
+
+				.user-name {
+					font-weight: 600;
+				}
+
+				.user-surname {
+					font-weight: 600;
+				}
+			}
+
+			.user-mail {
+				margin-bottom: 4px;
+			}
+		}
+
+		.user-exit {
+			height: 32px;
+			width: 32px;
+			position: absolute;
+			bottom: 16px;
+			right: 16px;
+			cursor: pointer;
+		}
+	}
 }
 
-@keyframes user__profile {
+@keyframes user-profile {
 	0% {
-		right: -480px;
+		opacity: 0;
+		top: 144px;
+	}
+	67% {
+		opacity: .5
 	}
 	100% {
-		right: 16px;
+		opacity: 1;
+		top: 64px;
 	}
 }
+
+// @keyframes user-profile-reverse {
+// 	0% {
+// 		top: 64px;
+// 		opacity: 1;
+// 	}
+// 	75% {
+// 		opacity: .5
+// 	}
+// 	100% {
+// 		top: 144px;
+// 		opacity: 0;
+// 	}
+// }
 
 .disp {
 	display: none;
