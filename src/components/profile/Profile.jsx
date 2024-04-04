@@ -8,9 +8,9 @@ export default function Profile() {
 			<div className="profile-inner">
 				<div className="user">
 					<img className="user-img" src={avatar} alt="" />
-						<button className="user-btn">
-							Изменить
-						</button>
+					<button className="user-btn">
+						Изменить
+					</button>
 				</div>	
 				<div className="user-data">
 					<div className="user-names">

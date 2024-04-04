@@ -20,22 +20,6 @@ $color-aquamarine: #d3ffe8;
       display: flex;
       padding: 0 12px;
       justify-content: space-between;
-      
-      .logo {
-        font-size: 24px;
-        font-weight: 600;
-        height: 48px;
-        text-transform: capitalize;
-
-        &::first-letter {
-          font-size: 36px;
-          color: forestgreen;
-        }
-  
-        &::first-letter {
-          color: green;
-        }
-      }
 
       .menu__list {
         display: flex;

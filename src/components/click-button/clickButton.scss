@@ -3,10 +3,16 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
+	height: 100vh;
+	background-image: url('../../app/images/minimalizm.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
 
 	.button-title	{
-		background: rgba(23, 23, 23, 0.24);
-		backdrop-filter: blur(20px);
+		color: #f4f4f4;
+		font-size: 24px;
+		margin-bottom: 128px;
 	}
 
 	.click-button {

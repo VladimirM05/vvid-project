@@ -8,8 +8,7 @@ export default function ClickButton() {
 			<div className="container">
 				<div className="button-title">
 					<h4 className="title-text">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae sed odio labore corrupti laborum doloribus ipsum praesentium. Corrupti adipisci vel laudantium consequatur rerum sapiente, sequi excepturi porro aspernatur ipsa delectus.
-						Quod doloremque eaque atque amet fugit voluptatibus enim, incidunt quis saepe in at iure veniam esse iste blanditiis voluptas ipsum nesciunt voluptate, voluptatum corrupti, molestias molestiae perferendis? Laudantium, itaque? Vitae?
+						Какой-то вступительный текст, который я надеюсь кто-нибудь придумает. Кстати при нажатии на кнопку будет вылетать окно регистрации, а после регистрации перекидывать на страницу с играми и кликером. Также у меня заканчивается словарный запас и еще думаю никто не будет это читать... 
 					</h4>
 				</div>
 				<div className="click-button">

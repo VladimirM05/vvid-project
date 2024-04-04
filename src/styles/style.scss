@@ -48,12 +48,7 @@ html {
 
 body {
 	font-size: 18px;
-	height: 100vh;
 	font-family: 'Yandex Medium', sans-serif;
-	background-image: url('../../src/app/images/minimalizm.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
 
 	a {
 		text-decoration: none;
@@ -75,6 +70,12 @@ body {
 
 	.container {
 		max-width: 1240px;
+		padding: 0 20px;
+		margin: 0 auto;
+	}
+
+	.small-container {
+		max-width: 840px;
 		padding: 0 20px;
 		margin: 0 auto;
 	}

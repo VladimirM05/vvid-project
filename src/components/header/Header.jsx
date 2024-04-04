@@ -1,6 +1,7 @@
 import "./header.scss";
 import person from "../../app/images/person.svg";
 import Profile from "../profile/Profile";
+import Logo from "../logo/Logo";
 
 export default function Header() {
 	const handleClick = () => {
@@ -20,9 +21,7 @@ export default function Header() {
 		<header className="header">
 			<div className="header__inner">
 				<div className="header__box">
-					<a className="logo" href="!#">
-						Σigma
-					</a>
+					<Logo />
 					<ul className="menu__list">
 						<li className="menu__item">
 							<a className="menu__link" href="!#">
