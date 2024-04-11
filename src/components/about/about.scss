@@ -5,8 +5,8 @@
 }
 
 .section2 {
-	height: 100vh;
-	padding-top: 128px;
+	min-height: 100vh;
+	padding-top: 144px;
 
 	.about {
 		gap: 4px 0;
@@ -16,8 +16,9 @@
 		margin: 0 auto;
 
 		.about-item {
-			
+			@include aboutItems;
 			padding: 12px;
+			border-radius: 4px;
 			
 			&:first-child {
 				border-radius: 18px 18px 4px 4px;
@@ -60,8 +61,7 @@
 
 		.about-img {
 			@include aboutItems;
-			height: 36px;
-			margin-top: 2px;
+			height: 40px;
 			border-radius: 18px 18px 4px 4px;
 			transform: rotate(180deg);
 			cursor: pointer;
