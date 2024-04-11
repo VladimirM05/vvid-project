@@ -1,4 +1,5 @@
 import "./header.scss";
+import { NavLink } from "react-router-dom";
 import person from "../../app/images/person.svg";
 import Profile from "../profile/Profile";
 import Logo from "../logo/Logo";
@@ -24,24 +25,24 @@ export default function Header() {
 					<Logo />
 					<ul className="menu__list">
 						<li className="menu__item">
-							<a className="menu__link" href="!#">
+							<NavLink className="menu__link" to="/">
 								Главная
-							</a>
+							</NavLink>
 						</li>
 						<li className="menu__item">
-							<a className="menu__link" href="!#">
+							<NavLink className="menu__link" to="/Games">
 								Игры
-							</a>
+							</NavLink>
 						</li>
 						<li className="menu__item">
-							<a className="menu__link" href="!#">
+							<NavLink className="menu__link" to="/Market">
 								Маркет
-							</a>
+							</NavLink>
 						</li>
 						<li className="menu__item">
-							<a className="menu__link" href="!#">
+							<NavLink className="menu__link" to="/Rating">
 								Рейтинг
-							</a>
+							</NavLink>
 						</li>
 					</ul>
 					<div className="user">

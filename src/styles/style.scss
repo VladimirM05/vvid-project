@@ -50,6 +50,13 @@ body {
 	font-size: 18px;
 	font-family: 'Yandex Medium', sans-serif;
 
+	.wrapper {
+		min-height: 100vh;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+	}
+
 	a {
 		text-decoration: none;
 		color: inherit;
@@ -78,5 +85,16 @@ body {
 		max-width: 840px;
 		padding: 0 20px;
 		margin: 0 auto;
+	}
+
+	.wallpaper {
+		background-image: url('../app/images/minimalizm.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		z-index: -1;
 	}
 }

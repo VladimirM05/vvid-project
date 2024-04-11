@@ -3,13 +3,11 @@
 	font-weight: 600;
 	height: 48px;
 	text-transform: capitalize;
+	display: block;
+	cursor: pointer;
 
 	&::first-letter {
 		font-size: 36px;
 		color: forestgreen;
-	}
-
-	&::first-letter {
-		color: green;
 	}
 }

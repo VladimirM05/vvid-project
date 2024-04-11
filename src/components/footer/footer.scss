@@ -1,52 +1,69 @@
 .footer {
 	background-color: #f0f0f0;
 	border-top: 2px solid silver;
-	padding: 48px 0;
 
 	.footer-inner {
+		padding-top: 32px;
+
 		.footer-title {
 			color: dimgrey;
 			margin-bottom: 24px;
+			font-size: 24px;
+		}
+
+		@keyframes title-img {
+			from {
+				transform: rotate(0);
+			}
+			to {
+				transform: rotate(180deg);
+			}
+		}
+		
+		@keyframes title-img-reverse {
+			from {
+				transform: rotate(180deg);
+			}
+			to {
+				transform: rotate(0);
+			}
 		}
 
 		.footer-nav {
 			display: flex;
-			justify-content: space-around;
+			justify-content: space-between;
 
 			.footer-block {
-
 				.footer-block-title {
 					display: flex;
-					gap: 8px;
+					gap: 6px;
 					cursor: pointer;
-					margin-bottom: 12px;
+					margin-bottom: 8px;
 
 					.footer-block-text {
-						font-size: 20px;
 						font-weight: 600;
 					}
 
 					.footer-block-img {
-						height: 20px;
+						height: 18px;
 					}
 				}
 
-				.footer-block-list {
+				.nav-list {
+					display: none;
+					margin-left: 8px;
 
-					.footer-block-item {
-						margin-left: 10px;
-
+					.nav-item {
 						&:not(:last-child) {
-							margin-bottom: 8px;
+							margin-bottom: 6px;
 						}
 
-						.footer-block-img {
+						.nav-img {
 							height: 16px;
 							margin-right: 4px;
 						}
 
-						.footer-block-link {
-							
+						.nav-link {
 							&:hover {
 								text-decoration: underline;
 							}
@@ -56,33 +73,29 @@
 
 				.github {
 					cursor: pointer;
+					margin-bottom: 12px;
 
 					.github-logo {
-						height: 48px;
+						height: 40px;
 					}
 					.github-text {
-						height: 48px;
+						height: 40px;
 					}
 				}
 			}
 		}
+
+		.footer-bottom {
+			display: flex;
+			justify-content: center;
+			padding: 18px 0 52px 0;
+			font-family: 'Poppins', sans-serif;
+
+			.footer-bottom-text {
+				font-size: 18px;
+				font-weight: 600;
+				color: dimgrey;
+			}
+		}
 	}	
-}
-
-@keyframes title-img {
-	from {
-		transform: rotate(0);
-	}
-	to {
-		transform: rotate(180deg);
-	}
-}
-
-@keyframes title-img-reverse {
-	from {
-		transform: rotate(180deg);
-	}
-	to {
-		transform: rotate(0);
-	}
 }
