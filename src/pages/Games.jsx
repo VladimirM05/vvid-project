@@ -1,5 +1,6 @@
 export default function Games() {
 	return (
-		<p>any text 1</p>
+		<p>any text 2</p>
+
 	);
 }
