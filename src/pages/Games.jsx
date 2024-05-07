@@ -1,6 +1,9 @@
+import Clicker from "../Games/Clicker";
+
 export default function Games() {
 	return (
-		<p>any text 2</p>
-
+		<>
+			<Clicker />
+		</>
 	);
 }

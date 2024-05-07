@@ -1,0 +1,26 @@
+.section-1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 484px;
+  height: 100vh;
+}
+.clicker-button {
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  
+  img {
+      user-select: none !important;
+      height: auto;
+      width: 200px;
+    }
+}
+
+.button-text-clicker {
+    font-size: 24px;
+
+    color: #2923cd;
+    text-align: center;
+}
