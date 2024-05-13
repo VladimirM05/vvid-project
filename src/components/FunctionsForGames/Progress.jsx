@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { Howl } from 'howler';
 import "../clicker-buttom/ClikerButtom.scss";
-import dirt1 from '../../app/images/imagineBloks/DirtBloks/Dirty1.jpg';
+
+import Sdirt1 from '../../app/sounds/DirtSound/Dirt1.wav';
+import Sdirt2 from '../../app/sounds/DirtSound/Dirt2.wav';
+import Sdirt3 from '../../app/sounds/DirtSound/Dirt2.wav';
+import Sdirt4 from '../../app/sounds/DirtSound/Dirt4.wav';
+
+import dirt1 from '../../app/images/imagineBloks/DirtBloks/Dirty1.jpg';     
 import dirt2 from '../../app/images/imagineBloks/DirtBloks/Dirty2.jpg';
 import dirt3 from '../../app/images/imagineBloks/DirtBloks/Dirty3.jpg';
 import dirt4 from '../../app/images/imagineBloks/DirtBloks/Dirty4.jpg';
@@ -16,6 +23,13 @@ import diamond1 from '../../app/images/imagineBloks/DiamondBloks/diamond1.jpg';
 import diamond2 from '../../app/images/imagineBloks/DiamondBloks/diamond2.jpg';
 import diamond3 from '../../app/images/imagineBloks/DiamondBloks/diamond3.jpg';
 import diamond4 from '../../app/images/imagineBloks/DiamondBloks/diamond4.jpg';
+
+const soundEffects = [
+    { src: Sdirt1, alt: 'Sound 1' },
+    { src: Sdirt2, alt: 'Sound 2' },
+    { src: Sdirt3, alt: 'Sound 3' },
+    { src: Sdirt4, alt: 'Sound 4' },
+].map(sound => new Howl({ src: [sound.src] }));
 
 const images = [
     { src: dirt1, alt: 'Image 1' },
@@ -42,6 +56,10 @@ export const Progress = () => {
     const [hp, setHp] = useState(12);
     const [xp, setXp] = useState(260);
 
+    const playSound = (index) => {
+        soundEffects[index].play();
+    };
+
     const randomNumberInRange = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
@@ -64,12 +82,16 @@ export const Progress = () => {
         if (xp === 160) {
             if (progress <= 40) {
                 setCurrentImageIndex(0);
+                playSound(0);
             } else if (progress <= 80) {
                 setCurrentImageIndex(1);
+                playSound(1);
             } else if (progress <= 120) {
                 setCurrentImageIndex(2);
+                playSound(2);
             } else if (progress <= 160) {
                 setCurrentImageIndex(3);
+                playSound(3);
             } else {
                 resetProgress();
             }
