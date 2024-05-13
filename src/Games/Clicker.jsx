@@ -1,4 +1,4 @@
-import { Progress } from "../FunctionsForGames/Progress";
+import { Progress } from "../components/FunctionsForGames/Progress";
 
 function Clicker(){
     return(
