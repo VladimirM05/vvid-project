@@ -8,6 +8,10 @@ import wood1 from '../../app/images/imagineBloks/WoodBloks/Wood1.jpg';
 import wood2 from '../../app/images/imagineBloks/WoodBloks/Wood2.jpg';
 import wood3 from '../../app/images/imagineBloks/WoodBloks/Wood3.jpg';
 import wood4 from '../../app/images/imagineBloks/WoodBloks/Wood4.jpg';
+import stone1 from '../../app/images/imagineBloks/StoneBloks/Stone1.jpg';
+import stone2 from '../../app/images/imagineBloks/StoneBloks/Stone2.jpg';
+import stone3 from '../../app/images/imagineBloks/StoneBloks/Stone3.jpg';
+import stone4 from '../../app/images/imagineBloks/StoneBloks/Stone4.jpg';
 import diamond1 from '../../app/images/imagineBloks/DiamondBloks/diamond1.jpg';
 import diamond2 from '../../app/images/imagineBloks/DiamondBloks/diamond2.jpg';
 import diamond3 from '../../app/images/imagineBloks/DiamondBloks/diamond3.jpg';
@@ -22,10 +26,14 @@ const images = [
     { src: wood2, alt: 'Image 6' },
     { src: wood3, alt: 'Image 7' },
     { src: wood4, alt: 'Image 8' },
-    { src: diamond1, alt: 'Image 9' },
-    { src: diamond2, alt: 'Image 10' },
-    { src: diamond3, alt: 'Image 11' },
-    { src: diamond4, alt: 'Image 12' },
+    { src: stone1, alt: 'Image 9' },
+    { src: stone2, alt: 'Image 10' },
+    { src: stone3, alt: 'Image 11' },
+    { src: stone4, alt: 'Image 12' },
+    { src: diamond1, alt: 'Image 13' },
+    { src: diamond2, alt: 'Image 14' },
+    { src: diamond3, alt: 'Image 15' },
+    { src: diamond4, alt: 'Image 16' },
 ];
 
 export const Progress = () => {
@@ -39,12 +47,15 @@ export const Progress = () => {
     };
 
     const findBlok = () => {
-        if (hp >= 0 && hp <= 55) {
+        if (hp >= 0 && hp <= 44) {
             setXp(160);
-        } else if (hp >= 56 && hp <= 80) {
+        } else if (hp >= 45 && hp <= 73) {
             setXp(260);
-        } else if (hp >= 81 && hp <= 95) {
+        } else if (hp >= 74 && hp <= 90) {
             setXp(460);
+        }
+        else if (hp >= 91 && hp <= 99) {
+            setXp(800);
         }
     };
 
@@ -83,6 +94,19 @@ export const Progress = () => {
                 setCurrentImageIndex(10);
             } else if (progress <= 460) {
                 setCurrentImageIndex(11);
+            } else {
+                resetProgress();
+            }
+        }
+        else if (xp === 800) {
+            if (progress <= 240) {
+                setCurrentImageIndex(12);
+            } else if (progress <= 400) {
+                setCurrentImageIndex(13);
+            } else if (progress <= 600) {
+                setCurrentImageIndex(14);
+            } else if (progress <= 800) {
+                setCurrentImageIndex(15);
             } else {
                 resetProgress();
             }
