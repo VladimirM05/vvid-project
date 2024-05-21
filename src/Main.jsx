@@ -2,6 +2,7 @@ import "./styles/style.scss";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import Home from "./pages/Home";
+// import RegForm from "./components/reg-form/RegForm";
 import Games from "./pages/Games";
 import Market from "./pages/Market";
 import Rating from "./pages/Rating";
@@ -17,7 +18,8 @@ export default function Main() {
 			<ScrollToTop />
 			<Header />
 			<Up />
-			<div class="wallpaper"></div>
+			<div className="wallpaper"></div>
+			{ /* <RegForm /> */ }
 			<main className="main">
 				<Routes>
 					<Route path="" element={<Home />} />

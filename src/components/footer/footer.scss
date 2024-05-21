@@ -37,7 +37,6 @@
 				.footer-block-title {
 					display: flex;
 					gap: 6px;
-					cursor: pointer;
 					margin-bottom: 8px;
 
 					.footer-block-text {
@@ -49,8 +48,11 @@
 					}
 				}
 
+				.footer-block-title-vk {
+					cursor: pointer;
+				}
+
 				.nav-list {
-					display: none;
 					margin-left: 8px;
 
 					.nav-item {
@@ -69,6 +71,10 @@
 							}
 						}
 					}
+				}
+
+				.nav-list-vk {
+					display: none;
 				}
 
 				.github {

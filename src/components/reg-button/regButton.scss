@@ -1,0 +1,30 @@
+.reg {
+	display: none;
+	margin: 0 auto;
+
+	.reg-inner {
+		color: #f4f4f4;
+		background-color: rgba(0, 0, 0, .8);
+		backdrop-filter: blur(10px);
+		border-radius: 18px;
+		padding: 18px;
+		box-shadow: 2px 3px 3px rgba(0, 0, 0, .25);
+		border: 2px solid #333334;
+
+		.reg-logo {
+			display: flex;
+			align-items: center;
+			gap: 0 16px;
+
+			.reg-logo-img {
+				height: 72px;
+			}
+
+			.reg-logo-title {
+				font-size: 24px;
+				font-family: "Roboto", sans-serif;
+				font-weight: 400;
+			}
+		}
+	}
+}

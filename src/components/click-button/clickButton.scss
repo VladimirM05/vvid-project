@@ -1,44 +1,49 @@
 .section1 {
-	padding-top: 225px;
-	display: flex;
-	justify-content: space-between;
-	flex-direction: column;
-	height: 100vh;
-
-	.button-title	{
-		color: #f4f4f4;
-		font-size: 24px;
-		margin-bottom: 96px;
-	}
-
-	.click-button {
-		height: 392px;
-		width: 392px;
-		margin: 0 auto;
-		display: flex;
+	
+	.intro {
+		height: 100vh;
 		align-items: center;
-		justify-content: center;
-		cursor: pointer;
+		display: flex;
+		justify-content: space-evenly;
+		flex-direction: column;
 
-		.button-img-front {
-			position: absolute;
-			z-index: 5;
-			animation: 15s linear infinite rotate;
-			opacity: .95;
-		}
-
-		.button-img-back {
-			position: absolute;
-			animation: 20s linear infinite rotate-reverse;
-		}
-
-		.button-text {
-			z-index: 10;
-			font-size: 36px;
+		.btn-title	{
 			color: #f4f4f4;
-			font-weight: 600;
-			text-transform: capitalize;
-			font-style: italic;
+			font-size: 24px;
+			margin-bottom: 96px;
+		}
+
+		.click-btn {
+			height: 392px;
+			width: 392px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+
+
+
+			.btn-img-front {
+				position: absolute;
+				z-index: 5;
+				animation: 15s linear infinite rotate;
+				opacity: .95;
+			}
+
+			.btn-img-back {
+				position: absolute;
+				animation: 20s linear infinite rotate-reverse;
+			}
+
+			.button-text {
+				z-index: 10;
+				font-size: 36px;
+				color: #f4f4f4;
+				font-weight: 600;
+				text-transform: capitalize;
+				font-style: italic;
+			}
 		}
 	}
 }	

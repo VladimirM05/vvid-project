@@ -47,7 +47,7 @@ export default function Header() {
 					</ul>
 					<div className="user">
 						<img className="user__profile" src={person} onClick={handleClick} alt="user-icon"></img>
-						<button className="user__login" onClick={handleClick}>Login</button>
+						<button className="user__login">Login</button>
 					</div>
 				</div>
 			</div>

@@ -6,19 +6,19 @@ import githubText from "../../app/images/github-text.png";
 import Logo from "../logo/Logo";
 
 export default function Footer() {
-	function handleClick(e) {
-		const listElement = document.getElementsByClassName('nav-list');
-		const titleImgElement = document.getElementsByClassName('footer-block-img');
+	function handleClick() {
+		const listElement = document.querySelector('.nav-list-vk');
+		const titleImgElement = document.querySelector('.footer-block-img');
 
-		if (listElement[e].style.display === 'none' || listElement[e].style.display === '') {
-			listElement[e].style.display = 'block';
-			titleImgElement[e].style.animation = 'title-img ease-out .3s';
-			titleImgElement[e].style.transform = "rotate(180deg)";
+		if (listElement.style.display === "none" || listElement.style.display === "") {
+			listElement.style.display = "block";
+			titleImgElement.style.animation = 'title-img ease-out .3s';
+			titleImgElement.style.transform = "rotate(180deg)";
 		}
 		else {
-			listElement[e].style.display = 'none';
-			titleImgElement[e].style.animation = 'title-img-reverse ease-out .3s';
-			titleImgElement[e].style.transform = "rotate(0)";
+			listElement.style.display = 'none';
+			titleImgElement.style.animation = 'title-img-reverse ease-out .3s';
+			titleImgElement.style.transform = "rotate(0)";
 		}
 	}
 	
@@ -31,13 +31,13 @@ export default function Footer() {
 					</h2>
 					<div className="footer-nav">
 						<div className="footer-block">
-							<div className="footer-block-title" onClick={() => handleClick(0)}>
+							<div className="footer-block-title footer-block-title-vk" onClick={handleClick}>
 								<p className="footer-block-text">
 									О нас
 								</p>
 								<img className="footer-block-img" src={up} alt=""/>
 							</div>
-							<ul className="nav-list">
+							<ul className="nav-list nav-list-vk">
 								<li className="nav-item">
 									<img className="nav-img" src={vk} alt="" />
 									<a className="nav-link" href="https://vk.com/volodya_vova" target="_blank" rel="noreferrer">
@@ -89,11 +89,10 @@ export default function Footer() {
 							</ul>
 						</div>
 						<div className="footer-block">
-							<div className="footer-block-title" onClick={() => handleClick(1)}>
+							<div className="footer-block-title">
 								<p className="footer-block-text">
 									Ещё
 								</p>
-								<img className="footer-block-img" src={up} alt=""/>
 							</div>
 							<ul className="nav-list">
 								<li className="nav-item">
