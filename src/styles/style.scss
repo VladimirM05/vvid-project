@@ -43,58 +43,60 @@ html {
 
 body {
 	font-size: 18px;
-	font-family: sans-serif;
+	font-family: 'Roboto';
+	color: #fff0f6;
 
 	.wrapper {
 		min-height: 100vh;
 		display: flex;
-		justify-content: space-between;
 		flex-direction: column;
-	}
+		justify-content: space-between;
 
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
 
-	ul {
-		list-style-type: none;
-	}
+		ul {
+			list-style-type: none;
+		}
 
-	button {
-		background: none;
-		border: none;
-		font-family: 'Poppins', sans-serif;
-		font-weight: 500;
-		cursor: pointer;
-		font-size: 20px;
-	}
+		button {
+			background: none;
+			border: none;
+			font-family: 'Poppins', sans-serif;
+			font-weight: 500;
+			cursor: pointer;
+			font-size: 20px;
+		}
 
-	input {
-		border: none;
-		background: none;
-	}
+		input {
+			border: none;
+			background: none;
+		}
 
-	.container {
-		max-width: 1240px;
-		padding: 0 20px;
-		margin: 0 auto;
-	}
+		.container {
+			max-width: 1240px;
+			padding: 0 20px;
+			margin: 0 auto;
+		}
 
-	.small-container {
-		max-width: 840px;
-		padding: 0 20px;
-		margin: 0 auto;
-	}
+		.small-container {
+			max-width: 640px;
+			padding: 0 20px;
+			margin: 0 auto;
+		}
 
-	.wallpaper {
-		background-image: url('../app/images/minimalizm.jpg');
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center;
-		position: fixed;
-		height: 100%;
-		width: 100%;
-		z-index: -1;
+		.wallpaper {
+			filter: brightness(90%);
+			background-image: url('../app/images/minimalizm.webp');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			z-index: -1;
+		}
 	}
 }

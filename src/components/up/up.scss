@@ -1,20 +1,23 @@
 .up {
 	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	left: 50%;
-	bottom: 8px;
+	bottom: 6px;
 	height: 40px;
 	width: 64px;
 	border-radius: 14px;
 	text-align: center;
 	transform: translate(-50%, 0);
-	box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
-	background-color: rgba(#fff, .75);
+	background-color: rgba(#181819, 0.9);
+	box-shadow: 0 3px 6px rgba(#121216, 0.36);
 	z-index: 10;
+	border: 2px solid #353535;
 	backdrop-filter: blur(20px);
 	cursor: pointer;
 
 	.up__img {
-		height: 36px;
-		margin-top: 2px;
+		height: 16px;
 	}
 }

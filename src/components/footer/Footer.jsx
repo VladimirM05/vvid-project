@@ -1,6 +1,6 @@
 import "./footer.scss";
 import vk from "../../app/images/vk.svg.webp";
-import up from "../../app/images/up.svg";
+import plus from "../../app/images/plus.svg";
 import githubLogo from "../../app/images/github-logo.png";
 import githubText from "../../app/images/github-text.png";
 import Logo from "../logo/Logo";
@@ -13,7 +13,7 @@ export default function Footer() {
 		if (listElement.style.display === "none" || listElement.style.display === "") {
 			listElement.style.display = "block";
 			titleImgElement.style.animation = 'title-img ease-out .3s';
-			titleImgElement.style.transform = "rotate(180deg)";
+			titleImgElement.style.transform = "rotate(135deg)";
 		}
 		else {
 			listElement.style.display = 'none';
@@ -31,11 +31,40 @@ export default function Footer() {
 					</h2>
 					<div className="footer-nav">
 						<div className="footer-block">
+							<div className="footer-block-title">
+								<p className="footer-block-text">
+									Ещё
+								</p>
+							</div>
+							<ul className="nav-list">
+								<li className="nav-item">
+									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
+										Кликер
+									</a>
+								</li>
+								<li className="nav-item">
+									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
+										Профиль	
+									</a>
+								</li>
+								<li className="nav-item">
+									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
+										Поддержка
+									</a>
+								</li>
+								<li className="nav-item">
+									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
+										FAQ
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div className="footer-block">	
 							<div className="footer-block-title footer-block-title-vk" onClick={handleClick}>
 								<p className="footer-block-text">
 									О нас
 								</p>
-								<img className="footer-block-img" src={up} alt=""/>
+								<img className="footer-block-img" src={plus} alt="Cross" />
 							</div>
 							<ul className="nav-list nav-list-vk">
 								<li className="nav-item">
@@ -65,7 +94,7 @@ export default function Footer() {
 								<li className="nav-item">
 									<img className="nav-img" src={vk} alt="" />
 									<a className="nav-link" href="https://vk.com/volodya_vova" target="_blank" rel="noreferrer">
-										Никита Подкопаев
+										Никита П.
 									</a>
 								</li>
 								<li className="nav-item">
@@ -87,32 +116,6 @@ export default function Footer() {
 									</a>
 								</li>
 							</ul>
-						</div>
-						<div className="footer-block">
-							<div className="footer-block-title">
-								<p className="footer-block-text">
-									Ещё
-								</p>
-							</div>
-							<ul className="nav-list">
-								<li className="nav-item">
-									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
-										Поддержка
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
-										Кликер
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="nav-link" href="!#" target="_blank" rel="noreferrer">
-										Профиль
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div className="footer-block">	
 							<a className="github" href="https://github.com/VladimirM05/vvid-project" target="_blank" rel="noreferrer">								
 								<img className="github-logo" src={githubLogo} alt="Github logo" />
 								<img className="github-text" src={githubText} alt="Github text" />

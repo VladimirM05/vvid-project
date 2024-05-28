@@ -1,53 +1,53 @@
 import "./header.scss";
 import { NavLink } from "react-router-dom";
-import person from "../../app/images/person.svg";
-import Profile from "../profile/Profile";
 import Logo from "../logo/Logo";
+import Profile from "../profile/Profile";
+import person from "../../app/images/person.webp";
 
 export default function Header() {
 	const handleClick = () => {
 		const userElement = document.querySelector('.profile');
 	
 		if (userElement.classList.contains('disp')) {
-				userElement.classList.remove('disp');
-				userElement.style.animation = 'user-profile ease-out .25s';
+			userElement.classList.remove('disp');
+			userElement.style.animation = 'user-profile ease-out .2s';
 		}
 		else {
-				userElement.classList.add('disp');
-				userElement.style.animation = 'user-profile-reverse ease-out .25s';
+			userElement.classList.add('disp');
+			userElement.style.animation = 'user-profile-reverse ease-out .2s';
 		}
 	}
 	
 	return (
 		<header className="header">
-			<div className="header__inner">
-				<div className="header__box">
+			<div className="header-inner">
+				<div className="header-box">
 					<Logo />
-					<ul className="menu__list">
-						<li className="menu__item">
-							<NavLink className="menu__link" to="/">
-								Главная
+					<ul className="menu-list">
+						<li className="menu-item">
+							<NavLink className="menu-link" to="/">
+								<span>Г</span>лавная
 							</NavLink>
 						</li>
-						<li className="menu__item">
-							<NavLink className="menu__link" to="/Games">
-								Игры
+						<li className="menu-item">
+							<NavLink className="menu-link" to="/Games">
+								<span>И</span>гры
 							</NavLink>
 						</li>
-						<li className="menu__item">
-							<NavLink className="menu__link" to="/Market">
-								Маркет
+						<li className="menu-item">
+							<NavLink className="menu-link" to="/Market">
+								<span>М</span>аркет
 							</NavLink>
 						</li>
-						<li className="menu__item">
-							<NavLink className="menu__link" to="/Rating">
-								Рейтинг
+						<li className="menu-item">
+							<NavLink className="menu-link" to="/Rating">
+								<span>Р</span>ейтинг
 							</NavLink>
 						</li>
 					</ul>
 					<div className="user">
-						<img className="user__profile" src={person} onClick={handleClick} alt="user-icon"></img>
-						<button className="user__login">Login</button>
+						<img className="user-profile" src={person} onClick={handleClick} alt="Profile icon"></img>
+						<button className="user-login">Login</button>
 					</div>
 				</div>
 			</div>

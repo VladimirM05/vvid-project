@@ -1,29 +1,35 @@
 .footer {
-	background-color: #f0f0f0;
-	border-top: 2px solid silver;
+	margin-bottom: 24px;
 
 	.footer-inner {
-		padding-top: 32px;
+		padding: 24px;
+		background-color: rgba(#181819, 0.9);
+		box-shadow: 0 3px 6px rgba(#121216, 0.36);
+		border-radius: 18px;
+		border: 2px solid #353535;
+		backdrop-filter: blur(20px);
 
 		.footer-title {
-			color: dimgrey;
-			margin-bottom: 24px;
-			font-size: 24px;
+			color: #707070;
+			margin-bottom: 18px;
+			font-size: 22px;
 		}
 
 		@keyframes title-img {
 			from {
 				transform: rotate(0);
 			}
+
 			to {
-				transform: rotate(180deg);
+				transform: rotate(125deg);
 			}
 		}
-		
+
 		@keyframes title-img-reverse {
 			from {
-				transform: rotate(180deg);
+				transform: rotate(135deg);
 			}
+
 			to {
 				transform: rotate(0);
 			}
@@ -31,20 +37,23 @@
 
 		.footer-nav {
 			display: flex;
-			justify-content: space-between;
+			justify-content: space-around;
 
 			.footer-block {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+
 				.footer-block-title {
 					display: flex;
-					gap: 6px;
+					gap: 8px;
 					margin-bottom: 8px;
+					color: #7d7d7d;
+					align-items: center;
 
 					.footer-block-text {
 						font-weight: 600;
-					}
-
-					.footer-block-img {
-						height: 18px;
 					}
 				}
 
@@ -56,13 +65,16 @@
 					margin-left: 8px;
 
 					.nav-item {
+						display: flex;
+						gap: 0 8px;
+
 						&:not(:last-child) {
 							margin-bottom: 6px;
 						}
 
 						.nav-img {
 							height: 16px;
-							margin-right: 4px;
+							margin-top: 3px;
 						}
 
 						.nav-link {
@@ -75,15 +87,31 @@
 
 				.nav-list-vk {
 					display: none;
+					position: absolute;
+					right: -8%;
+					bottom: 100%;
+					box-shadow: 0 3px 6px rgba(#121216, 0.36);
+					border-radius: 12px;
+					border: 1px solid #353535;
+					background-color: #181819;
+					padding: 12px;
+					white-space: nowrap;
 				}
 
 				.github {
 					cursor: pointer;
-					margin-bottom: 12px;
+					margin-bottom: 8px;
+					background-color: #fff0f6;
+					display: block;
+					border-radius: 10px;
+					padding: 4px;
+					display: flex;
+					align-items: center;
 
 					.github-logo {
 						height: 40px;
 					}
+
 					.github-text {
 						height: 40px;
 					}
@@ -94,14 +122,14 @@
 		.footer-bottom {
 			display: flex;
 			justify-content: center;
-			padding: 18px 0 52px 0;
+			padding-top: 18px;
 			font-family: 'Poppins', sans-serif;
 
 			.footer-bottom-text {
 				font-size: 18px;
 				font-weight: 600;
-				color: dimgrey;
+				color: #7d7d7d;
 			}
 		}
-	}	
+	}
 }

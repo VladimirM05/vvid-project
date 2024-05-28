@@ -1,35 +1,60 @@
+$color-coal: #121216;
 $color-lavender: #aea4e3;
-$color-aquamarine: #d3ffe8;
 
 .header {
   position: fixed;
   z-index: 20;
   width: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent);
+  background: linear-gradient(180deg, rgba($color-coal, 0.36), transparent);
 
-  .header__inner {
+  .header-inner {
     margin: 8px 16px 0 16px;
-    box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
-    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 3px 6px rgba($color-coal, 0.36);
+    background-color: rgba(#181819, 0.9);
     border-radius: 18px;
+    border: 2px solid #353535;
     backdrop-filter: blur(20px);
     line-height: 48px;
     height: 48px;
 
-    .header__box {
+    .header-box {
       display: flex;
       padding: 0 12px;
       justify-content: space-between;
+      margin-top: -2px;
 
-      .menu__list {
+      .menu-list {
         display: flex;
         gap: 0 24px;
+        transition: 0.2s;
 
-        .menu__item:hover {
-          color: dimgrey;
-          transition: ease-in 0.2s;
-          text-decoration: underline dotted dimgrey;
-          text-decoration-thickness: 4px;
+        .menu-item {
+          position: relative;
+
+          .menu-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            width: 100%;
+            height: 3px;
+            background: darken($color-lavender, 18%);
+            border-radius: 4px;
+            transform: scaleX(0);
+            transition: transform .5s;
+            transform-origin: right;
+          }
+          
+          .menu-link:hover::after{
+            background: darken($color-lavender, 18%);
+            transform: scaleX(1);
+            transform-origin: left;
+          }
+
+          .menu-link:hover span{
+            color: darken($color-lavender, 18%);
+            transition: ease-in 0.2s;
+          }
         }
       }
 
@@ -38,14 +63,14 @@ $color-aquamarine: #d3ffe8;
         align-items: center;
         gap: 0 12px;
 
-        .user__profile {
-          height: 28px;
+        .user-profile {
+          height: 30px;
           cursor: pointer;
         }
 
-        .user__login {
-          padding: 2px 12px;
-          background: linear-gradient(90deg, $color-lavender, $color-aquamarine);
+        .user-login {
+          padding: 0 10px;
+          background: linear-gradient(90deg, $color-lavender, #d3ffe8);
           border-radius: 18px;
         }
       }

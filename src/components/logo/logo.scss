@@ -1,13 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@100..900&display=swap');
+@import url('//fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+$color-lavender: #aea4e3;
+
 .logo {
 	font-size: 24px;
-	font-weight: 600;
 	height: 48px;
-	text-transform: capitalize;
-	display: block;
 	cursor: pointer;
 
-	&::first-letter {
-		font-size: 36px;
-		color: forestgreen;
+	.logo-first-word {
+		&:hover .first-letter-1  {
+			color: darken($color-lavender, 21%);
+			transition: .2s;
+		}
+
+		.first-letter-1 {
+			font-size: 32px;
+			transition: .2s;
+			font-weight: 600;
+			color: darken($color-lavender, 15%);
+			font-family: 'Roboto Slab', sans-serif;
+		}
+	}
+
+	.logo-second-word {
+		font-family: 'Playfair Display', sans-serif;
+		color: #7d7d7d;
+
+		&:hover .first-letter-2 {
+			color: #fff0f6;
+			transition: .2s;
+		}
+
+		.first-letter-2 {
+			font-size: 30px;
+			transition: .2s;
+		}
 	}
 }

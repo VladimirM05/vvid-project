@@ -1,11 +1,17 @@
+$color-coal: #121216;
+$color-coul-light: #303030;
+$color-snow: #efefef;
+
 .profile {
 	box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
 	right: 16px;
 	top: 64px;
+	color: #efefef;
 	border-radius: 18px;
 	position: fixed;
-	background-color: rgba(255, 255, 255, .75);
+	background-color: rgba($color-coal, .9);
 	backdrop-filter: blur(20px);
+	border: 2px solid $color-coul-light;
 
 	.profile-inner {
 		padding: 16px;
@@ -28,6 +34,7 @@
 				border-radius: 15px;
 				height: 30px;
 				font-size: 18px;
+				color: #303030;
 				background: linear-gradient(90deg, #f598a8, #f6edb2);
 
 				&:hover {

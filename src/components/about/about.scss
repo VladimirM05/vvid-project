@@ -1,70 +1,49 @@
 @mixin aboutItems {
-	box-shadow: 2px 3px 3px rgba(23, 23, 23, 0.24);
-	background-color: rgba(255, 255, 255, 0.75);
+	box-shadow: 0 3px 6px rgba(#121216, 0.36);
+	background-color: rgba(#181819, 0.9);
 	backdrop-filter: blur(20px);
+	border: 2px solid #353535;
 }
 
-.section2 {
+.section-2 {
 	min-height: 100vh;
-	padding-top: 144px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 24px;
 
 	.about {
-		gap: 4px 0;
+		gap: 2px 0;
 		display: flex;
 		flex-direction: column;
-		width: 640px;
 		margin: 0 auto;
 
 		.about-item {
 			@include aboutItems;
 			padding: 12px;
-			border-radius: 4px;
+			border-radius: 6px;
 			
 			&:first-child {
-				border-radius: 18px 18px 4px 4px;
+				border-radius: 18px 18px 6px 6px;
 				text-align: center;
-				font-size: 24px;
+				font-size: 22px;
+				font-weight: 600;
+				color: #707070;
 			}
 
-			&:nth-child(2) {
-				background-color:thistle;
+			&:last-child {
+				border-radius: 6px 6px 18px 18px;
+				text-align: center;
+				font-size: 22px;
+				font-weight: 600;
+				padding: 4px;
+				color: #707070;
+				
+				.about-img {
+					height: 14px;
+					transform: rotate(180deg);
+					cursor: pointer;
+				}
 			}
-
-			&:nth-child(3) {
-				background-color:palevioletred;
-			}
-
-			&:nth-child(4) {
-				background-color:tomato;
-			}
-
-			&:nth-child(5) {
-				background-color: cornflowerblue;
-			}
-
-			&:nth-child(6) {
-				background-color: darkseagreen;
-			}
-
-			&:nth-child(7) {
-				background-color: crimson;
-			}
-
-			&:nth-child(8) {
-				background-color: mediumpurple;
-			}
-
-			&:nth-child(9) {
-				background-color:lightcyan;
-			}
-		}
-
-		.about-img {
-			@include aboutItems;
-			height: 40px;
-			border-radius: 18px 18px 4px 4px;
-			transform: rotate(180deg);
-			cursor: pointer;
 		}
 	}
 }

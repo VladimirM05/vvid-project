@@ -7,7 +7,7 @@ export default function RegButton() {
 		const regBtnParent= document.querySelector('.reg');
 
 		regBtnElement.style.transform = 'rotateX(15deg)';
-		regBtnElement.style.boxShadow = '0px 6px 6px rgba(0, 0, 0, .25)';
+		regBtnElement.style.boxShadow = '0 3px 6px rgba(#121216, 0.36)';
 		regBtnElement.style.transition = '.3s ease';
 		regBtnParent.style.perspective = '1500px'
 	}
@@ -16,7 +16,7 @@ export default function RegButton() {
 		const regBtnElement = document.querySelector('.reg-inner');
 
 		regBtnElement.style.transform = 'rotateX(0deg)';
-		regBtnElement.style.boxShadow = '2px 3px 3px rgba(0, 0, 0, .25)';
+		regBtnElement.style.boxShadow = '0 3px 6px rgba(#121216, 0.36)';
 	}
 	
 	return (
