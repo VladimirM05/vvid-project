@@ -1,5 +1,6 @@
 import "./regButton.scss";
 import MetaMask from "../../app/images/MetaMask.svg.webp";
+import { useMetaMask } from "metamask-react";
 
 export default function RegButton() {
 	const regChangeOver = () => {
@@ -18,9 +19,11 @@ export default function RegButton() {
 		regBtnElement.style.transform = 'rotateX(0deg)';
 		regBtnElement.style.boxShadow = '0 3px 6px rgba(#121216, 0.36)';
 	}
-	
+
+	const { connect } = useMetaMask();
+
 	return (
-		<button className="reg" onMouseOver={regChangeOver} onMouseOut={regChangeOut}>
+		<button className="reg" onClick={connect} onMouseOver={regChangeOver} onMouseOut={regChangeOut}>
 			<div className="reg-inner">
 				<p className="reg-text">
 					Войти с помощью
