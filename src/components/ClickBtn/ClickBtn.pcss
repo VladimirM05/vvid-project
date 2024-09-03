@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Italiana&display=swap");
+
+@mixin qwerty {
+	margin-top: 529px;
+	display: flex;
+	justify-content: center;
+}
+
+.section-1 {
+	margin-top: 529px;
+	display: flex;
+	justify-content: center;
+
+	.click-btn {
+		position: relative;
+		cursor: pointer;
+		user-select: none;
+		pointer-events: stroke;
+		height: 258px;
+		width: 258px;
+		display: grid;
+		place-items: center;
+
+		.click-btn-area {
+			position: absolute;
+			height: calc(100% - 50px);
+			width: calc(100% - 50px);
+			z-index: 10;
+		}
+
+		.balance-add {
+			font-size: 32px;
+			position: absolute;
+			color: #ffffff;
+			transform: translateX(25%);
+			transition: opacity 0.7s ease-in;
+		}
+
+		.click-btn-img {
+			transition: all 0.2s ease-out;
+			height: 258px;
+			width: 258px;
+			box-shadow: 5px 4px 4px #000000;
+		}
+
+		.click-btn-text {
+			position: absolute;
+			transition: all 0.2s ease-out;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			font-family: "Italiana", sans-serif;
+			font-size: 96px;
+			color: #ffffff;
+
+			&:first-of-type {
+				font-family: "Lalezar", sans-serif;
+				font-size: 70px;
+			}
+		}
+	}
+
+	.sign-in-link {
+		padding: 40px 120px;
+		background-color: #013f0b;
+
+		.sign-in-text {
+			color: #ffffff;
+			font-family: "Lalezar", sans-serif;
+			font-size: 50px;
+		}
+	}
+}

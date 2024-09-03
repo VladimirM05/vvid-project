@@ -1,0 +1,105 @@
+.user-aside-container {
+	display: flex;
+	position: fixed;
+	height: 100vh;
+	top: 0;
+	width: 100vw;
+	z-index: 50;
+	animation: asideFilterVisible ease-out 0.3s;
+	background-color: rgba(0, 0, 0, 0.3);
+
+	.user-aside {
+		width: 280px;
+		height: 100vh;
+		background-color: #ffffff;
+		animation: moveSideBar ease-out 0.3s;
+		transform: translateX(0);
+
+		.user-aside-inner {
+			.user-aside-title {
+				font-family: "Lalezar", sans-serif;
+				font-size: 24px;
+				display: flex;
+				justify-content: center;
+			}
+
+			.user-profile {
+				display: flex;
+				gap: 12px;
+				padding: 12px;
+				flex-wrap: wrap;
+
+				.user-profile-avatar {
+					margin-bottom: 12px;
+
+					.user-profile-avatar-img {
+						height: 92px;
+						width: 92px;
+					}
+				}
+			}
+
+			.user-profile-container {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				flex: 1;
+			}
+		}
+	}
+
+	.user-aside-hide {
+		animation: hideSideBar ease-out 0.3s;
+		transform: translateX(100%);
+	}
+
+	@keyframes moveSideBar {
+		0% {
+			transform: translateX(100%) scale(50%);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0) scale(100%);
+			opacity: 1;
+		}
+	}
+
+	@keyframes hideSideBar {
+		0% {
+			transform: translateX(0) scale(100%);
+			opacity: 1;
+		}
+		100% {
+			transform: translateX(100%) scale(50%);
+			opacity: 0;
+		}
+	}
+
+	.screen-filter {
+		height: 100vh;
+		width: calc(100vw - 280px);
+	}
+}
+
+@keyframes asideFilterVisible {
+	0% {
+		background-color: transparent;
+	}
+	100% {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+}
+
+.user-aside-container-hide {
+	animation: asideFilterUnVisible 0.3s ease-out;
+	background-color: transparent;
+}
+
+@keyframes asideFilterUnVisible {
+	0% {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	100% {
+		background-color: transparent;
+	}
+}
