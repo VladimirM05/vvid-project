@@ -72,7 +72,7 @@ const Header: FC = () => {
 								? {
 										display: "absolute",
 										left: "50%",
-										transform: "translateX(-50%)",
+										transform: "translateX(-50%) translateY(5%)",
 								  }
 								: { display: "block" }
 						}
@@ -102,10 +102,10 @@ const Header: FC = () => {
 						</div>
 					)}
 					{!userSignIn && (
-						<div className="reg-btn">
+						<NavLink className="reg-btn" to="Registration">
 							<img className="reg-img" src={signIn} alt="Reg Button Icon" />
 							<span className="reg-text">Sign In</span>
-						</div>
+						</NavLink>
 					)}
 				</div>
 			</header>

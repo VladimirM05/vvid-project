@@ -9,13 +9,17 @@ interface IBalanceContext {
 	balance: number;
 	setBalance: React.Dispatch<React.SetStateAction<number>>;
 	userSignIn: boolean;
+	setUserSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BalanceContext = React.createContext<IBalanceContext | null>(null);
 
-const Main: FC = () => {
-	// Проверка пользователя на авторизацию
-	const [userSignIn] = useState<boolean>(false);
+interface IMain {
+	userSignIn: boolean;
+	setUserSignIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 	// Баланс пользователя
 	const [balance, setBalance] = useState<number>(0);
 
@@ -37,7 +41,9 @@ const Main: FC = () => {
 	}, [balance]);
 
 	return (
-		<BalanceContext.Provider value={{ balance, setBalance, userSignIn }}>
+		<BalanceContext.Provider
+			value={{ balance, setBalance, userSignIn, setUserSignIn }}
+		>
 			<div
 				className="wallpaper"
 				style={{ backgroundImage: `url(${background})` }}

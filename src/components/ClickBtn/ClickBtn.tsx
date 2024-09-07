@@ -1,9 +1,9 @@
-import { FC, useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { IBlock } from "../../interfaces/IBlock";
-import { BalanceContext } from "../../pages/Main";
-import { blocksArray } from "../../store/blocksArray";
-import "./ClickBtn.pcss";
+import { FC, useContext, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { IBlock } from '../../interfaces/IBlock';
+import { BalanceContext } from '../../pages/Main';
+import { blocksArray } from '../../store/blocksArray';
+import './ClickBtn.pcss';
 
 // Генератор рандомных чисел
 const getRandNum = (min: number, max: number): number => {
@@ -35,7 +35,7 @@ const ClickBtn: FC = () => {
 	const context = useContext(BalanceContext);
 	// Если Header будет использоваться вне BalanceContext.Provider, появится данная ошибка, которая укажет на ошибку использования
 	if (!context) {
-		throw new Error("Header must be used within a BalanceProvider");
+		throw new Error('Header must be used within a BalanceProvider');
 	}
 	const { balance, setBalance, userSignIn } = context;
 
@@ -44,16 +44,16 @@ const ClickBtn: FC = () => {
 		block2.endurance--;
 
 		// Отрисовывает элемент
-		const clickBtn = document.querySelector<HTMLDivElement>(".click-btn");
+		const clickBtn = document.querySelector<HTMLDivElement>('.click-btn');
 		clickBtn?.insertAdjacentHTML(
-			"beforeend",
+			'beforeend',
 			`<span class="balance-add" style="top:${mouseY}px; left:${mouseX}px">${
 				block2.endurance === 0 &&
 				blockCount === Object.keys(blockParent).length - 1
 					? blockParent[blockCount].cost >= 0
-						? "+" + blockParent[blockCount].cost
+						? '+' + blockParent[blockCount].cost
 						: blockParent[blockCount].cost
-					: "+1"
+					: '+1'
 			}
 		</span>`
 		);
@@ -62,13 +62,13 @@ const ClickBtn: FC = () => {
 		const prevMouseY: number = mouseY;
 		let top: number = 0;
 		const start: number = Date.now();
-		const timer: NodeJS.Timer = setInterval((): void => {
+		const timer: NodeJS.Timeout = setInterval((): void => {
 			const timePassed: number = Date.now() - start;
 			top += 3;
-			lastchild.style.top = prevMouseY - top + "px";
+			lastchild.style.top = prevMouseY - top + 'px';
 
 			if (timePassed >= 300) {
-				lastchild.style.opacity = "0";
+				lastchild.style.opacity = '0';
 			}
 
 			if (timePassed >= 1000) {
@@ -115,30 +115,30 @@ const ClickBtn: FC = () => {
 
 	const changeBtnEnter = (): void => {
 		const btnBackImage = document.querySelector(
-			".click-btn-img"
+			'.click-btn-img'
 		) as HTMLElement;
 		const btnEnterText = document.querySelector(
-			".click-btn-text"
+			'.click-btn-text'
 		) as HTMLElement;
 
-		btnBackImage.style.height = "208px";
-		btnBackImage.style.width = "208px";
-		btnBackImage.style.boxShadow = "3px 2px 4px #000000";
-		btnEnterText.style.fontSize = "50px";
+		btnBackImage.style.height = '208px';
+		btnBackImage.style.width = '208px';
+		btnBackImage.style.boxShadow = '3px 2px 4px #000000';
+		btnEnterText.style.fontSize = '50px';
 	};
 
 	const changeBtnLeave = (): void => {
 		const btnBackImage = document.querySelector(
-			".click-btn-img"
+			'.click-btn-img'
 		) as HTMLImageElement;
 		const btnEnterText = document.querySelector(
-			".click-btn-text"
+			'.click-btn-text'
 		) as HTMLSpanElement;
 
-		btnBackImage.style.height = "258px";
-		btnBackImage.style.width = "258px";
-		btnBackImage.style.boxShadow = "5px 4px 4px #000000";
-		btnEnterText.style.fontSize = "70px";
+		btnBackImage.style.height = '258px';
+		btnBackImage.style.width = '258px';
+		btnBackImage.style.boxShadow = '5px 4px 4px #000000';
+		btnEnterText.style.fontSize = '70px';
 	};
 
 	return (

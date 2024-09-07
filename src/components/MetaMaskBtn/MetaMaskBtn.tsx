@@ -4,11 +4,12 @@ import "./MetaMaskBtn.pcss";
 
 interface IMetaMaskBtn {
 	onClick: () => void;
+	disabled: boolean;
 }
 
-const MetaMaskBtn: FC<IMetaMaskBtn> = ({ onClick }) => {
+const MetaMaskBtn: FC<IMetaMaskBtn> = ({ onClick, disabled }) => {
 	return (
-		<button className="metamask-btn" onClick={onClick} disabled={false}>
+		<button className="metamask-btn" onClick={onClick} disabled={disabled}>
 			<span className="metamask-text">
 				LOG IN WITH
 				<br />

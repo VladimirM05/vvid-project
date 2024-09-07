@@ -1,11 +1,9 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "ESNext",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
@@ -14,7 +12,14 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": false,
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true
+	},
+	"ts-node": {
+		"compilerOptions": {
+			"module": "CommonJS"
+		}
 	},
 	"include": ["src", "src/assets/types/global.d.ts"]
 }

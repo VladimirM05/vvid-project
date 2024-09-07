@@ -21,7 +21,7 @@ import diamond3 from "../assets/images/diamond-3.jpg";
 import diamond4 from "../assets/images/diamond-4.jpg";
 import tnt from "../assets/images/tnt.jpg";
 
-const blocksArray: IBlock[][] = [
+export const blocksArray: IBlock[][] = [
 	[
 		{
 			src: dirt1,
@@ -140,5 +140,3 @@ const blocksArray: IBlock[][] = [
 		},
 	],
 ];
-
-export { blocksArray };
