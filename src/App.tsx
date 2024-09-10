@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
+import { FC, useState, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Main } from './pages/Main';
-import { Games } from './pages/Games';
-import { Questions } from './pages/Questions';
-import { Registration } from './pages/Registration';
-import './assets/styles/global.pcss';
+import { Main } from '@/pages/main';
+import { Games } from '@/pages/games';
+import { Questions } from '@/pages/questions';
+import { Registration } from '@/pages/registration';
+import '@/assets/styles/global.pcss';
 
 export const App: FC = () => {
 	// Проверка пользователя на авторизацию
-	const [userSignIn, setUserSignIn] = useState<boolean>(false);
+	const [userSignIn, setUserSignIn] = useState<boolean>(true);
 
 	return (
 		<Router>
@@ -16,18 +16,36 @@ export const App: FC = () => {
 				<Route
 					path="/"
 					element={
-						<Main userSignIn={userSignIn} setUserSignIn={setUserSignIn} />
+						<Suspense fallback="Loading...">
+							<Main userSignIn={userSignIn} setUserSignIn={setUserSignIn} />
+						</Suspense>
 					}
 				/>
-				<Route path="/games" element={<Games />} />
-				<Route path="/questions" element={<Questions />} />
+				<Route
+					path="/games"
+					element={
+						<Suspense fallback="Loading...">
+							<Games />
+						</Suspense>
+					}
+				/>
+				<Route
+					path="/questions"
+					element={
+						<Suspense fallback="Loading...">
+							<Questions />
+						</Suspense>
+					}
+				/>
 				<Route
 					path="/registration"
 					element={
-						<Registration
-							userSignIn={userSignIn}
-							setUserSignIn={setUserSignIn}
-						/>
+						<Suspense fallback="Loading...">
+							<Registration
+								userSignIn={userSignIn}
+								setUserSignIn={setUserSignIn}
+							/>
+						</Suspense>
 					}
 				/>
 				<Route path="*" />

@@ -1,29 +1,29 @@
-import { FC, useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { TopPlayersSideBar } from "../TopPlayersSideBar/TopPlayersSideBar";
-import dollar from "../../assets/images/dollar.svg";
-import list from "../../assets/images/list.svg";
-import signIn from "../../assets/images/signIn.svg";
-import { BalanceContext } from "../../pages/Main";
-import "./Header.pcss";
+import { FC, useState, useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { TopPlayersSideBar } from '../TopPlayersSideBar/TopPlayersSideBar';
+import dollar from '../../assets/images/dollar.svg';
+import list from '../../assets/images/list.svg';
+import signIn from '../../assets/images/signIn.svg';
+import { BalanceContext } from '../../pages/main/Main';
+import './Header.pcss';
 
 const Header: FC = () => {
 	// Передача данных из Main с помощью хука useContext
 	const context = useContext(BalanceContext);
 	// Если Header будет использоваться вне BalanceContext.Provider, появится данная ошибка, которая укажет на ошибку использования
 	if (!context) {
-		throw new Error("Header must be used within a BalanceProvider");
+		throw new Error('Header must be used within a BalanceProvider');
 	}
 	const { balance, userSignIn } = context;
 
-	const [isVisible, setIsVisible] = useState<string>("");
+	const [isVisible, setIsVisible] = useState<string>('');
 	const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
 	const toggleVisibility = (visible: string): void => {
 		if (isVisible) {
 			setIsAnimating(true);
 			setTimeout(() => {
-				setIsVisible("");
+				setIsVisible('');
 				setIsAnimating(false);
 			}, 300);
 		} else {
@@ -50,7 +50,7 @@ const Header: FC = () => {
 							<li className="menu-item">
 								<span
 									className="menu-link"
-									onClick={() => toggleVisibility("players")}
+									onClick={() => toggleVisibility('players')}
 								>
 									Топ игроки
 								</span>
@@ -58,7 +58,7 @@ const Header: FC = () => {
 							<li className="menu-item">
 								<span
 									className="menu-link"
-									onClick={() => toggleVisibility("missions")}
+									onClick={() => toggleVisibility('missions')}
 								>
 									Миссии
 								</span>
@@ -70,11 +70,11 @@ const Header: FC = () => {
 						style={
 							userSignIn
 								? {
-										display: "absolute",
-										left: "50%",
-										transform: "translateX(-50%) translateY(5%)",
+										display: 'absolute',
+										left: '50%',
+										transform: 'translateX(-50%) translateY(5%)',
 								  }
-								: { display: "block" }
+								: { display: 'block' }
 						}
 					>
 						<span className="logo-text">Sigma Rule</span>
@@ -83,14 +83,14 @@ const Header: FC = () => {
 						<div className="user-info">
 							<button
 								className="user-info-btn"
-								onClick={() => toggleVisibility("profile")}
+								onClick={() => toggleVisibility('profile')}
 							>
 								<img className="user-info-img" src={dollar} alt="User" />
 								<span className="user-info-text">{balance}</span>
 							</button>
 							<button
 								className="user-info-btn user-info-btn-2"
-								onClick={() => toggleVisibility("profile")}
+								onClick={() => toggleVisibility('profile')}
 							>
 								<img
 									className="user-info-img user-info-img-2"

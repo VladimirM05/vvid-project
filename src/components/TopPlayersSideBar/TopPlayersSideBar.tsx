@@ -1,11 +1,11 @@
-import { FC, useContext } from "react";
-import { createPortal } from "react-dom";
-import { BalanceContext } from "../../pages/Main";
-import { UserData } from "../UserData/UserData";
-import { UserData2 } from "../UserData2/UserData2";
-import { CoutCashBtn } from "../CoutCashBtn/CoutCashBtn";
-import profile from "../../assets/images/gandonioCat.png";
-import "./TopPlayersSideBar.pcss";
+import { FC, useContext } from 'react';
+import { createPortal } from 'react-dom';
+import { BalanceContext } from '../../pages/main/Main';
+import { UserData } from '../UserData/UserData';
+import { UserData2 } from '../UserData2/UserData2';
+import { CoutCashBtn } from '../CoutCashBtn/CoutCashBtn';
+import profile from '../../assets/images/gandonioCat.png';
+import './TopPlayersSideBar.pcss';
 
 interface ITopPlayersSideBar {
 	isVisible: string;
@@ -22,7 +22,7 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
 	const context = useContext(BalanceContext);
 	// Если Header будет использоваться вне BalanceContext.Provider, появится данная ошибка, которая укажет на ошибку использования
 	if (!context) {
-		throw new Error("Header must be used within a BalanceProvider");
+		throw new Error('Header must be used within a BalanceProvider');
 	}
 	const { balance } = context;
 
@@ -30,22 +30,22 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
 		<div
 			className={
 				isAnimating
-					? "user-aside-container user-aside-container-hide"
-					: "user-aside-container"
+					? 'user-aside-container user-aside-container-hide'
+					: 'user-aside-container'
 			}
 		>
-			<div className="screen-filter" onClick={() => toggleVisibility("")}></div>
+			<div className="screen-filter" onClick={() => toggleVisibility('')}></div>
 			<aside
-				className={isAnimating ? "user-aside user-aside-hide" : "user-aside"}
+				className={isAnimating ? 'user-aside user-aside-hide' : 'user-aside'}
 			>
 				<div className="user-aside-inner">
-					{isVisible === "players" && (
+					{isVisible === 'players' && (
 						<h4 className="user-aside-title">Топ Игроки</h4>
 					)}
-					{isVisible === "missions" && (
+					{isVisible === 'missions' && (
 						<h4 className="user-aside-title">Миссии</h4>
 					)}
-					{isVisible === "profile" && (
+					{isVisible === 'profile' && (
 						<div className="user-profile">
 							<div className="user-profile-avatar">
 								<img
@@ -66,7 +66,7 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
 				</div>
 			</aside>
 		</div>,
-		document.querySelector("body") as HTMLElement
+		document.querySelector('body') as HTMLElement
 	);
 };
 

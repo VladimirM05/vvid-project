@@ -4,5 +4,10 @@ import { BuildOptions } from './types/types';
 export function buildResolvers(
 	options: BuildOptions
 ): Configuration['resolve'] {
-	return { extensions: ['.tsx', '.ts', '.js', '.pcss'] };
+	return {
+		extensions: ['.tsx', '.ts', '.js', '.pcss'],
+		alias: {
+			'@': options.paths.src,
+		},
+	};
 }

@@ -1,8 +1,8 @@
 import { FC, useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { IBlock } from '../../interfaces/IBlock';
-import { BalanceContext } from '../../pages/Main';
-import { blocksArray } from '../../store/blocksArray';
+import { IBlock } from '@/interfaces/IBlock';
+import { BalanceContext } from '@/pages/main/Main';
+import { blocksArray } from '@/store/blocksArray';
 import './ClickBtn.pcss';
 
 // Генератор рандомных чисел
