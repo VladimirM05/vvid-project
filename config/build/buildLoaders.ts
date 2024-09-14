@@ -1,6 +1,7 @@
 import { BuildOptions } from './types/types';
 import { ModuleOptions } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ReactRefreshTypeScript from 'react-refresh-typescript';
 
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 	const isDev = options.mode === 'development';
@@ -40,10 +41,37 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 		],
 	};
 
-	const tsLoader = {
+	// const tsLoader = {
+	// 	test: /\.tsx?$/,
+	// 	use: 'ts-loader',
+	// 	exclude: /node_modules/,
+	// };
+
+	// const tsLoader = {
+	// 	exclude: /node_modules/,
+	// 	test: /\.tsx?$/,
+	// 	loader: 'ts-loader',
+	// 	options: {
+	// 		transpileOnly: true,
+	// 		getCustomTransformers: () => ({
+	// 			before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
+	// 		}),
+	// 	},
+	// };
+
+	const babelLoader = {
 		test: /\.tsx?$/,
-		use: 'ts-loader',
 		exclude: /node_modules/,
+		use: {
+			loader: 'babel-loader',
+			options: {
+				presets: [
+					'@babel/preset-env',
+					'@babel/preset-typescript',
+					['@babel/preset-react', { runtime: isDev ? 'automatic' : 'classic' }],
+				],
+			},
+		},
 	};
 
 	const fontsLoader = {
@@ -57,5 +85,5 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 		},
 	};
 
-	return [assetLoader, pcssLoader, tsLoader, fontsLoader];
+	return [assetLoader, pcssLoader, babelLoader, fontsLoader];
 }

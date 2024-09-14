@@ -36,7 +36,6 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 
 	useEffect(() => {
 		document.title = 'Главная';
-		console.log(balance, userSignIn);
 
 		const storedData = Cookies.get('Cookie');
 		if (storedData) {
@@ -48,11 +47,9 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 				console.error('Ошибка при парсинге cookie:', error);
 			}
 		}
-		console.log(balance, userSignIn);
 	}, []);
 
 	useEffect(() => {
-		console.log(balance, userSignIn);
 		const states: IStates = {
 			userSignIn: userSignIn,
 			balance: balance,
@@ -60,10 +57,9 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 
 		Cookies.set('Cookie', JSON.stringify(states), {
 			path: '/',
-			expires: 365 * 24 * 60 * 60,
+			expires: 0,
 			sameSite: 'strict',
 		});
-		console.log(balance, userSignIn);
 	}, [balance]);
 
 	return (

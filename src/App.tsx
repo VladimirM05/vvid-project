@@ -8,7 +8,9 @@ import '@/assets/styles/global.pcss';
 
 export const App: FC = () => {
 	// Проверка пользователя на авторизацию
-	const [userSignIn, setUserSignIn] = useState<boolean>(true);
+	const [userSignIn, setUserSignIn] = useState<boolean>(false);
+
+	// console.log(__PLATFORM__, __ENV__);
 
 	return (
 		<Router>

@@ -18,3 +18,6 @@ interface Window {
 		request: (args: { method: string }) => Promise<any>;
 	};
 }
+
+declare const __PLATFORM__: 'mobile' | 'desktop';
+declare const __ENV__: 'production' | 'development';
