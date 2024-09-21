@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import { BalanceContext } from '../../pages/main/Main';
 import { UserData } from '../UserData/UserData';
 import { UserData2 } from '../UserData2/UserData2';
-import { CoutCashBtn } from '../CoutCashBtn/CoutCashBtn';
 import profile from '../../assets/images/gandonioCat.png';
 import './TopPlayersSideBar.pcss';
 
@@ -60,7 +59,6 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
 							</div>
 							<UserData2 text="Рейтинг" value={null} />
 							<UserData2 text="Заработано токенов" value={balance} />
-							<CoutCashBtn />
 						</div>
 					)}
 				</div>

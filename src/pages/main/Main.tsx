@@ -57,7 +57,7 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 
 		Cookies.set('Cookie', JSON.stringify(states), {
 			path: '/',
-			expires: 0,
+			expires: 365 * 24 * 60 * 60,
 			sameSite: 'strict',
 		});
 	}, [balance]);

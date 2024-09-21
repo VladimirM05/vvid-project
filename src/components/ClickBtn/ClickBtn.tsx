@@ -1,8 +1,9 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IBlock } from '@/interfaces/IBlock';
 import { BalanceContext } from '@/pages/main/Main';
 import { blocksArray } from '@/store/blocksArray';
+import pick from '../../assets/images/pick.png';
 import './ClickBtn.pcss';
 
 // Генератор рандомных чисел
@@ -30,6 +31,9 @@ let mouseY: number = 0;
 
 const ClickBtn: FC = () => {
 	const [showSignInBtn, setShowSignInBtn] = useState<boolean>(false);
+	const [blockClickBtn, setBlockClickBtn] = useState<boolean>(true);
+	const [showClickBtnText, setShowClickBtnText] = useState<boolean>(true);
+	const changeCursor = useRef<HTMLDivElement | null>(null);
 
 	// Передача данных из Main с помощью хука useContext
 	const context = useContext(BalanceContext);
@@ -38,6 +42,36 @@ const ClickBtn: FC = () => {
 		throw new Error('Header must be used within a BalanceProvider');
 	}
 	const { balance, setBalance, userSignIn } = context;
+
+	// Задержка при ломании блока
+	const delayOnClick = (): void => {
+		setShowClickBtnText(false);
+
+		if (
+			block2.endurance === 1 &&
+			blockCount === Object.keys(blockParent).length - 1
+		) {
+			setDataBlock();
+			setBlockClickBtn(!blockClickBtn);
+			const clickBtn = document.querySelector('.click-btn') as HTMLDivElement;
+			let clickBtnOpacity: number = 0;
+
+			const start: number = Date.now();
+			const clickBtnTimer: NodeJS.Timeout = setInterval((): void => {
+				const timePassed: number = Date.now() - start;
+				clickBtnOpacity += 0.02;
+				clickBtn.style.opacity = String(clickBtnOpacity);
+
+				if (timePassed >= 500) {
+					setBlockClickBtn(prevValue => !prevValue);
+					clickBtnOpacity = 0;
+					clearInterval(clickBtnTimer);
+				}
+			}, 10);
+		} else {
+			setDataBlock();
+		}
+	};
 
 	// Функция, срабатывающая при нажатии на кнопку
 	const setDataBlock = (): void => {
@@ -114,6 +148,12 @@ const ClickBtn: FC = () => {
 	};
 
 	const changeBtnEnter = (): void => {
+		if (changeCursor.current) {
+			console.log(changeCursor.current.style.cursor);
+			changeCursor.current.style.cursor = `url(${pick}), auto`;
+			console.log(changeCursor.current.style.cursor);
+		}
+
 		const btnBackImage = document.querySelector(
 			'.click-btn-img'
 		) as HTMLElement;
@@ -121,13 +161,19 @@ const ClickBtn: FC = () => {
 			'.click-btn-text'
 		) as HTMLElement;
 
-		btnBackImage.style.height = '208px';
-		btnBackImage.style.width = '208px';
+		btnBackImage.style.height = '250px';
+		btnBackImage.style.width = '250px';
 		btnBackImage.style.boxShadow = '3px 2px 4px #000000';
-		btnEnterText.style.fontSize = '50px';
+		btnEnterText.style.fontSize = '55px';
 	};
 
 	const changeBtnLeave = (): void => {
+		if (changeCursor.current) {
+			console.log(changeCursor.current.style.cursor);
+			changeCursor.current.style.cursor = 'default';
+			console.log(changeCursor.current.style.cursor);
+		}
+
 		const btnBackImage = document.querySelector(
 			'.click-btn-img'
 		) as HTMLImageElement;
@@ -135,8 +181,8 @@ const ClickBtn: FC = () => {
 			'.click-btn-text'
 		) as HTMLSpanElement;
 
-		btnBackImage.style.height = '258px';
-		btnBackImage.style.width = '258px';
+		btnBackImage.style.height = '300px';
+		btnBackImage.style.width = '300px';
 		btnBackImage.style.boxShadow = '5px 4px 4px #000000';
 		btnEnterText.style.fontSize = '70px';
 	};
@@ -152,11 +198,16 @@ const ClickBtn: FC = () => {
 					className="click-btn"
 					onMouseEnter={changeBtnEnter}
 					onMouseLeave={changeBtnLeave}
+					ref={changeCursor}
 				>
 					<div
 						className="click-btn-area"
 						onClick={
-							userSignIn ? setDataBlock : () => setShowSignInBtn(!showSignInBtn)
+							userSignIn
+								? blockClickBtn
+									? delayOnClick
+									: undefined
+								: () => setShowSignInBtn(!showSignInBtn)
 						}
 						onMouseMove={onMouseMove}
 					></div>
@@ -165,10 +216,12 @@ const ClickBtn: FC = () => {
 						src={blockParent[blockCount].src}
 						alt="Click Button Background"
 					/>
-					{userSignIn ? (
-						<span className="click-btn-text">Claim</span>
-					) : (
+					{!userSignIn ? (
 						<span className="click-btn-text">Play</span>
+					) : (
+						<span className="click-btn-text">
+							{showClickBtnText && 'Claim'}
+						</span>
 					)}
 				</div>
 			)}

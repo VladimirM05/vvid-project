@@ -1,6 +1,7 @@
 import { FC, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TopPlayersSideBar } from '../TopPlayersSideBar/TopPlayersSideBar';
+import { CoutCashBtn } from '../CoutCashBtn/CoutCashBtn';
 import dollar from '../../assets/images/dollar.svg';
 import list from '../../assets/images/list.svg';
 import signIn from '../../assets/images/signIn.svg';
@@ -72,7 +73,7 @@ const Header: FC = () => {
 								? {
 										display: 'absolute',
 										left: '50%',
-										transform: 'translateX(-50%) translateY(5%)',
+										transform: 'translateX(10%) translateY(5%)',
 								  }
 								: { display: 'block' }
 						}
@@ -81,6 +82,7 @@ const Header: FC = () => {
 					</div>
 					{userSignIn && (
 						<div className="user-info">
+							<CoutCashBtn />
 							<button
 								className="user-info-btn"
 								onClick={() => toggleVisibility('profile')}

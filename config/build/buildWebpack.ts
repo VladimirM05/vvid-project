@@ -22,7 +22,7 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
 		module: {
 			rules: buildLoaders(options),
 		},
-		devtool: isDev && 'inline-source-map',
+		devtool: isDev ? 'eval-cheap-module-source-map' : 'source-map',
 		devServer: isDev ? buildDevServer(options) : undefined,
 		performance: {
 			hints: false,

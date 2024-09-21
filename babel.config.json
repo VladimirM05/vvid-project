@@ -1,4 +1,3 @@
-// для jest
 {
 	"presets": [
 		"@babel/preset-env",
