@@ -31,7 +31,9 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 					method: 'eth_requestAccounts',
 				});
 				setAccount(accounts[0]); // Устанавливаем текущий аккаунт
-				setUserSignIn(true);
+				console.log(userSignIn);
+				setUserSignIn(prevState => !prevState);
+				console.log(userSignIn);
 				navigate('/');
 			} catch (error) {
 				console.error('Ошибка подключения: ', error);

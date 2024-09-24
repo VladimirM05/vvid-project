@@ -42,7 +42,9 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 			try {
 				const states: IStates = JSON.parse(storedData);
 				setBalance(states.balance);
+				console.log(states.userSignIn);
 				setUserSignIn(states.userSignIn);
+				console.log(states.userSignIn);
 			} catch (error) {
 				console.error('Ошибка при парсинге cookie:', error);
 			}
@@ -50,10 +52,12 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
 	}, []);
 
 	useEffect(() => {
+		console.log(userSignIn);
 		const states: IStates = {
 			userSignIn: userSignIn,
 			balance: balance,
 		};
+		console.log(userSignIn);
 
 		Cookies.set('Cookie', JSON.stringify(states), {
 			path: '/',

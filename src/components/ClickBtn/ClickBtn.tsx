@@ -1,4 +1,4 @@
-import { FC, useContext, useState, useRef } from 'react';
+import { FC, useContext, useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IBlock } from '@/interfaces/IBlock';
 import { BalanceContext } from '@/pages/main/Main';
@@ -23,7 +23,7 @@ let blockParent: IBlock[] = Object.assign(
 let blockCount: number = 0;
 
 // Дочерний блок
-let block2: IBlock = Object.assign({}, blockParent[blockCount]);
+let blockChildren: IBlock = Object.assign({}, blockParent[blockCount]);
 
 // Координаты мыши относительно родителя
 let mouseX: number = 0;
@@ -34,6 +34,12 @@ const ClickBtn: FC = () => {
 	const [blockClickBtn, setBlockClickBtn] = useState<boolean>(true);
 	const [showClickBtnText, setShowClickBtnText] = useState<boolean>(true);
 	const changeCursor = useRef<HTMLDivElement | null>(null);
+	// Состояния для обратного отчета на tnt
+	const [count, setCount] = useState<number>(3);
+	const [isCounting, setIsCounting] = useState<boolean>(false);
+	const [showAnimation, setShowAnimation] = useState<boolean>(true);
+	const [opacity, setOpacity] = useState<number>(1);
+	const [fontSize, setFontSize] = useState<string>('64px');
 
 	// Передача данных из Main с помощью хука useContext
 	const context = useContext(BalanceContext);
@@ -43,12 +49,47 @@ const ClickBtn: FC = () => {
 	}
 	const { balance, setBalance, userSignIn } = context;
 
+	// Проверка первого блока
+	useEffect(() => {
+		if (blockChildren.cost === -5) {
+			setIsCounting(true);
+			setCount(3);
+			setOpacity(1);
+			setFontSize('64px');
+		}
+	}, []);
+
+	// Счетчик на tnt
+	useEffect(() => {
+		let interval: NodeJS.Timeout;
+
+		if (isCounting && count > 0) {
+			interval = setInterval((): void => {
+				setShowAnimation(prevAnimation => true);
+				setOpacity(0);
+				setFontSize('48px');
+				setTimeout(() => {
+					setCount(prevCount => prevCount - 1);
+					setOpacity(1);
+					setFontSize('64px');
+					setShowAnimation(prevAnimation => false);
+				}, 600);
+			}, 1000);
+		} else if (count === 0) {
+			setIsCounting(false);
+			blockParent = Object.assign(
+				{},
+				blocksArray[getRandNum(0, blocksArray.length - 1)]
+			);
+		}
+
+		return () => clearInterval(interval);
+	}, [isCounting, count]);
+
 	// Задержка при ломании блока
 	const delayOnClick = (): void => {
-		setShowClickBtnText(false);
-
 		if (
-			block2.endurance === 1 &&
+			blockChildren.endurance === 1 &&
 			blockCount === Object.keys(blockParent).length - 1
 		) {
 			setDataBlock();
@@ -59,7 +100,7 @@ const ClickBtn: FC = () => {
 			const start: number = Date.now();
 			const clickBtnTimer: NodeJS.Timeout = setInterval((): void => {
 				const timePassed: number = Date.now() - start;
-				clickBtnOpacity += 0.02;
+				clickBtnOpacity += 0.04;
 				clickBtn.style.opacity = String(clickBtnOpacity);
 
 				if (timePassed >= 500) {
@@ -73,23 +114,25 @@ const ClickBtn: FC = () => {
 		}
 	};
 
-	// Функция, срабатывающая при нажатии на кнопку
+	// Функция, срабатывающая после выполнения delayOnClick
 	const setDataBlock = (): void => {
-		block2.endurance--;
+		setShowClickBtnText(false);
+
+		blockChildren.endurance--;
 
 		// Отрисовывает элемент
 		const clickBtn = document.querySelector<HTMLDivElement>('.click-btn');
 		clickBtn?.insertAdjacentHTML(
 			'beforeend',
 			`<span class="balance-add" style="top:${mouseY}px; left:${mouseX}px">${
-				block2.endurance === 0 &&
+				blockChildren.endurance === 0 &&
 				blockCount === Object.keys(blockParent).length - 1
 					? blockParent[blockCount].cost >= 0
 						? '+' + blockParent[blockCount].cost
 						: blockParent[blockCount].cost
 					: '+1'
 			}
-		</span>`
+			</span>`
 		);
 
 		const lastchild = clickBtn?.lastChild as HTMLSpanElement;
@@ -113,23 +156,27 @@ const ClickBtn: FC = () => {
 		setBalance(prevBalance => prevBalance + 1);
 		// Условие, которое изменяет степень разрушения блока
 		if (
-			block2.endurance === 0 &&
+			blockChildren.endurance === 0 &&
 			blockCount !== Object.keys(blockParent).length - 1
 		) {
 			blockCount++;
-			block2 = Object.assign({}, blockParent[blockCount]);
+			blockChildren = Object.assign({}, blockParent[blockCount]);
+		}
+
+		if (blockChildren.cost === -5 && isCounting) {
+			setIsCounting(false);
 		}
 
 		// Условие, которое меняет блок на следующий
 		if (
-			block2.endurance === 0 &&
+			blockChildren.endurance === 0 &&
 			blockCount === Object.keys(blockParent).length - 1
 		) {
 			// Перестраховка на случай отрицательного баланса
-			if (balance < 10 && block2.cost < 0) {
+			if (balance < 10 && blockChildren.cost < 0) {
 				setBalance(0);
 			} else {
-				setBalance(balance + block2.cost + 1);
+				setBalance(balance + blockChildren.cost + 1);
 			}
 
 			blockParent = Object.assign(
@@ -137,7 +184,14 @@ const ClickBtn: FC = () => {
 				blocksArray[getRandNum(0, blocksArray.length - 1)]
 			);
 			blockCount = 0;
-			block2 = Object.assign({}, blockParent[blockCount]);
+			blockChildren = Object.assign({}, blockParent[blockCount]);
+		}
+		if (blockChildren.cost === -5 && !isCounting) {
+			console.log(blockChildren.cost);
+			setIsCounting(true);
+			setCount(3);
+			setOpacity(1);
+			setFontSize('64px');
 		}
 	};
 
@@ -149,9 +203,7 @@ const ClickBtn: FC = () => {
 
 	const changeBtnEnter = (): void => {
 		if (changeCursor.current) {
-			console.log(changeCursor.current.style.cursor);
 			changeCursor.current.style.cursor = `url(${pick}), auto`;
-			console.log(changeCursor.current.style.cursor);
 		}
 
 		const btnBackImage = document.querySelector(
@@ -169,9 +221,7 @@ const ClickBtn: FC = () => {
 
 	const changeBtnLeave = (): void => {
 		if (changeCursor.current) {
-			console.log(changeCursor.current.style.cursor);
 			changeCursor.current.style.cursor = 'default';
-			console.log(changeCursor.current.style.cursor);
 		}
 
 		const btnBackImage = document.querySelector(
@@ -219,9 +269,23 @@ const ClickBtn: FC = () => {
 					{!userSignIn ? (
 						<span className="click-btn-text">Play</span>
 					) : (
-						<span className="click-btn-text">
-							{showClickBtnText && 'Claim'}
-						</span>
+						<>
+							<span className="click-btn-text">
+								{showClickBtnText && 'Claim'}
+							</span>
+							{isCounting && (
+								<span
+									className="count"
+									style={{
+										opacity,
+										fontSize,
+										transition: showAnimation ? 'all 0.5s ease-out' : '',
+									}}
+								>
+									{count}
+								</span>
+							)}
+						</>
 					)}
 				</div>
 			)}
