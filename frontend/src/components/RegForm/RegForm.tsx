@@ -41,7 +41,7 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
         setUserSignIn((prevState) => !prevState);
         
         const response = await axios.post(
-          "http://localhost:8000/post_user",
+          "http://localhost:8000/api/post_user",
           {
             "wallet_address": accounts[0],
             "nickname": inputValue,

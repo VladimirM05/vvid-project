@@ -72,7 +72,6 @@ async def update_user(wallet_address: str, updated_user: UpdateUser):
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="User not found")
 
-print()
 
 if __name__ == "__main__":
     import uvicorn
