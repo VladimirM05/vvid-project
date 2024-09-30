@@ -40,7 +40,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantic модель для получения данных пользователя
+# Pydantic модель для получения данных пользователяя
 class New_user(BaseModel):
     wallet_address: str
     nickname: str
@@ -71,7 +71,9 @@ async def update_user(wallet_address: str, updated_user: UpdateUser):
         return {"message": f"User {wallet_address} updated successfully"}
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="User not found")
-    
+
+print()
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
