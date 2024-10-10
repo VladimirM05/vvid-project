@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { IBlock } from '@/interfaces/IBlock';
 import { BalanceContext } from '@/pages/main/Main';
 import { blocksArray } from '@/store/blocksArray';
+import { soundsArray } from "../../store/soundArray";
 import pick from '../../assets/images/pick.png';
 import './ClickBtn.pcss';
 
@@ -25,9 +26,13 @@ let blockCount: number = 0;
 // Дочерний блок
 let blockChildren: IBlock = Object.assign({}, blockParent[blockCount]);
 
-// Координаты мыши относительно родителя
+// Координаты мыши относительно элемента .click-btn
 let mouseX: number = 0;
 let mouseY: number = 0;
+
+// Координаты мыши относительно окна
+let clientX: number = 0;
+let clientY: number = 0;
 
 const ClickBtn: FC = () => {
 	const [showSignInBtn, setShowSignInBtn] = useState<boolean>(false);
@@ -86,6 +91,12 @@ const ClickBtn: FC = () => {
 		return () => clearInterval(interval);
 	}, [isCounting, count]);
 
+	// функция проигрывания эффектов
+	const playSound = (soundSrc: string): void => {
+		const audio = new Audio(soundSrc);
+		audio.play();
+	};
+
 	// Задержка при ломании блока
 	const delayOnClick = (): void => {
 		if (
@@ -119,6 +130,11 @@ const ClickBtn: FC = () => {
 		setShowClickBtnText(false);
 
 		blockChildren.endurance--;
+
+		//определение звукового эффекта для текущего блока
+		const soundIndex = blockParent[blockCount].kind;
+		const sound = soundsArray[soundIndex][getRandNum(0, soundsArray[soundIndex].length - 1)];
+		playSound(sound.src);
 
 		// Отрисовывает элемент
 		const clickBtn = document.querySelector<HTMLDivElement>('.click-btn');
@@ -193,12 +209,82 @@ const ClickBtn: FC = () => {
 			setOpacity(1);
 			setFontSize('64px');
 		}
+		let amount = 20; // количество частиц
+		let x:any, y:any;
+		if (clientX === 0 && clientY === 0) {
+			const bbox = clickBtn?.getBoundingClientRect();
+			if (bbox) {
+				x = bbox.left + bbox.width / 2;
+				y = bbox.top + bbox.height / 2;
+			}
+		} else {
+			x = clientX;
+			y = clientY;
+		}
+
+		for (let i = 0; i < amount; i++) {
+			createParticle(x+10, y+10, 'square');
+		}
 	};
+
+	
 
 	// Отслеживание координат мыши
 	const onMouseMove = (e: React.MouseEvent): void => {
 		mouseX = e.nativeEvent.offsetX;
 		mouseY = e.nativeEvent.offsetY;
+		clientX = e.clientX;
+		clientY = e.clientY;
+	};
+
+	const createParticle = (x: number, y: number, type: string) => {
+		const particle = document.createElement('particle');
+		document.body.appendChild(particle);
+		let width = Math.floor(Math.random() * 10) + 8; // размер частиц
+		let height = width;
+		let destinationX = (Math.random() - 0.5) * 100; // расстояние вылета
+		let destinationY = (Math.random() - 0.5) * 120; // расстояние вылета
+		let rotation = Math.random() * 52;
+		let delay = Math.random() * 20;
+		switch (type) {
+			case 'square':
+				if (blockParent[blockCount].kind === 1){
+					particle.style.background = `hsl(${Math.random() * 20 + 20}, 70%, 60%)`; // цвет квадратов
+					particle.style.border = '1px solid brown'; 
+				} else if (blockParent[blockCount].kind === 2){
+					particle.style.background = `hsl(${30 + Math.random() * 10 - 5}, ${100 + Math.random() * 10 - 5}%, ${30 + Math.random() * 10 - 5}%)`;
+					particle.style.border = '1px solid brown'; 
+				} else if (blockParent[blockCount].kind === 3){
+					particle.style.background = `hsl(0, 0%, ${Math.random() * 100}%)`; // цвет квадратов
+					particle.style.border = '1px solid gray'; 
+				} else if (blockParent[blockCount].kind === 4){
+					particle.style.background = `hsl(${195 + Math.random() * 10 - 5}, ${80 + Math.random() * 10 - 5}%, ${50 + Math.random() * 10 - 5}%)`;
+					particle.style.border = '1px solid white';
+				}
+				break;
+		}
+		particle.style.width = `${width}px`;
+		particle.style.height = `${height}px`;
+		const animation = particle.animate([
+			{
+				transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,
+				opacity: 1
+			},
+			{
+				transform: `translate(-50%, -50%) translate(${x + destinationX}px, ${y + destinationY}px) rotate(${rotation}deg)`,
+				opacity: 0
+			}
+		], {
+			duration: Math.random() * 1000 + 500, // длительность анимации
+			easing: 'cubic-bezier(0, .9, .57, 1)',
+			delay: delay
+		});
+		animation.onfinish = removeParticle;
+	};
+
+	// Функция removeParticle
+	const removeParticle = (e: any) => {
+		e.srcElement.effect.target.remove();
 	};
 
 	const changeBtnEnter = (): void => {

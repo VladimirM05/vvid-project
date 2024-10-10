@@ -9,7 +9,8 @@ import '@/assets/styles/global.pcss';
 export const App: FC = () => {
 	// Проверка пользователя на авторизацию
 	const [userSignIn, setUserSignIn] = useState<boolean>(false);
-
+	// Баланс пользователя
+	const [balance, setBalance] = useState<number>(0);
 	// console.log(__PLATFORM__, __ENV__);
 
 	return (
@@ -19,7 +20,7 @@ export const App: FC = () => {
 					path="/"
 					element={
 						<Suspense fallback="Loading...">
-							<Main userSignIn={userSignIn} setUserSignIn={setUserSignIn} />
+							<Main userSignIn={userSignIn} setUserSignIn={setUserSignIn} setBalance={setBalance} balance={balance}/>
 						</Suspense>
 					}
 				/>
@@ -35,7 +36,7 @@ export const App: FC = () => {
 					path="/questions"
 					element={
 						<Suspense fallback="Loading...">
-							<Questions />
+							<Questions setBalance={setBalance} balance={balance}/>
 						</Suspense>
 					}
 				/>
