@@ -21,8 +21,10 @@ interface IBalanceContext {
 export const BalanceContext = React.createContext<IBalanceContext | null>(null);
 
 interface IMain {
-	userSignIn: boolean;
 	setUserSignIn: Dispatch<SetStateAction<boolean>>;
+	userSignIn: boolean;
+	setBalance:  Dispatch<SetStateAction<number>>;
+	balance: number;
 }
 
 interface IStates {
@@ -30,9 +32,8 @@ interface IStates {
 	balance: number;
 }
 
-const Main: FC<IMain> = ({ userSignIn, setUserSignIn }) => {
-	// Баланс пользователя
-	const [balance, setBalance] = useState<number>(0);
+const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance }) => {
+
 
 	useEffect(() => {
 		document.title = 'Главная';

@@ -21,27 +21,31 @@ import diamond3 from "../assets/images/diamond-3.jpg";
 import diamond4 from "../assets/images/diamond-4.jpg";
 import tnt from "../assets/images/tnt.jpg";
 
-export const blocksArray: IBlock[][] = [
+const blocksArray: IBlock[][] = [
 	[
 		{
 			src: dirt1,
 			endurance: 1,
 			cost: 1,
+			kind: 1,
 		},
 		{
 			src: dirt2,
 			endurance: 1,
 			cost: 1,
+			kind: 1,
 		},
 		{
 			src: dirt3,
 			endurance: 1,
 			cost: 1,
+			kind: 1,
 		},
 		{
 			src: dirt4,
 			endurance: 1,
 			cost: 2,
+			kind: 1,
 		},
 	],
 	[
@@ -49,21 +53,25 @@ export const blocksArray: IBlock[][] = [
 			src: grass1,
 			endurance: 1,
 			cost: 1,
+			kind: 1,
 		},
 		{
 			src: grass2,
 			endurance: 1,
 			cost: 1,
+			kind: 1,
 		},
 		{
 			src: grass3,
 			endurance: 1,
 			cost: 1,
+			kind: 1,
 		},
 		{
 			src: grass4,
 			endurance: 1,
 			cost: 2,
+			kind: 1,
 		},
 	],
 	[
@@ -71,21 +79,25 @@ export const blocksArray: IBlock[][] = [
 			src: wood1,
 			endurance: 2,
 			cost: 1,
+			kind: 2,
 		},
 		{
 			src: wood2,
 			endurance: 2,
 			cost: 1,
+			kind: 2,
 		},
 		{
 			src: wood3,
 			endurance: 2,
 			cost: 1,
+			kind: 2,
 		},
 		{
 			src: wood4,
 			endurance: 2,
 			cost: 5,
+			kind: 2,
 		},
 	],
 	[
@@ -93,21 +105,25 @@ export const blocksArray: IBlock[][] = [
 			src: cobblestone1,
 			endurance: 3,
 			cost: 1,
+			kind: 3,
 		},
 		{
 			src: cobblestone2,
 			endurance: 3,
 			cost: 1,
+			kind: 3,
 		},
 		{
 			src: cobblestone3,
 			endurance: 3,
 			cost: 1,
+			kind: 3,
 		},
 		{
 			src: cobblestone4,
 			endurance: 3,
 			cost: 10,
+			kind: 3,
 		},
 	],
 	[
@@ -115,21 +131,25 @@ export const blocksArray: IBlock[][] = [
 			src: diamond1,
 			endurance: 5,
 			cost: 1,
+			kind: 4,
 		},
 		{
 			src: diamond2,
 			endurance: 5,
 			cost: 1,
+			kind: 4,
 		},
 		{
 			src: diamond3,
 			endurance: 5,
 			cost: 1,
+			kind: 4,
 		},
 		{
 			src: diamond4,
 			endurance: 5,
 			cost: 25,
+			kind: 4,
 		},
 	],
 	[
@@ -137,6 +157,9 @@ export const blocksArray: IBlock[][] = [
 			src: tnt,
 			endurance: 1,
 			cost: -5,
+			kind: 5,
 		},
 	],
 ];
+
+export { blocksArray };

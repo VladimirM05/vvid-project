@@ -20,11 +20,30 @@ export default (env: EnvVariables) => {
 	};
 
 	const config: webpack.Configuration = buildWebpack({
-		port: env.port ?? 3000,
+		port: env.port ?? 8000,
 		mode: env.mode ?? 'development',
 		paths,
 		analyzer: env.analyzer,
 		platform: env.platform ?? 'desktop',
+	});
+
+	if (!config.module) {
+		config.module = {};
+	}
+	if (!config.module.rules) {
+		config.module.rules = [];
+	}
+
+	config.module.rules.push({
+		test: /\.(mp3|wav)$/,
+		use: [
+			{
+				loader: 'file-loader',
+				options: {
+					name: '[path][name].[ext]',
+				},
+			},
+		],
 	});
 
 	return config;
