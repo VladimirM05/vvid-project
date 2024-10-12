@@ -8,7 +8,7 @@ import '@/assets/styles/global.pcss';
 
 export const App: FC = () => {
 	// Проверка пользователя на авторизацию
-	const [userSignIn, setUserSignIn] = useState<boolean>(false);
+	const [userSignIn, setUserSignIn] = useState<boolean>(true);
 
 	// console.log(__PLATFORM__, __ENV__);
 

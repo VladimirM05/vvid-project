@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from 'react';
+import { FC, useState, useContext, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TopPlayersSideBar } from '../TopPlayersSideBar/TopPlayersSideBar';
 import { CoutCashBtn } from '../CoutCashBtn/CoutCashBtn';
@@ -8,7 +8,7 @@ import signIn from '../../assets/images/signIn.svg';
 import { BalanceContext } from '../../pages/main/Main';
 import './Header.pcss';
 
-const Header: FC = () => {
+const Header: FC = memo(() => {
 	// Передача данных из Main с помощью хука useContext
 	const context = useContext(BalanceContext);
 	// Если Header будет использоваться вне BalanceContext.Provider, появится данная ошибка, которая укажет на ошибку использования
@@ -120,6 +120,6 @@ const Header: FC = () => {
 			)}
 		</>
 	);
-};
+});
 
 export { Header };
