@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Istok+Web&display=swap");
+
+/* @font-face {
+	font-family: "Lalezar";
+	src: url(../../app/fonts/Lalezar-Regular.ttf) format("ttf");
+	font-style: normal;
+	font-weight: 400;
+} */
+
+.header {
+	padding: 20px 140px 0 140px;
+
+	.header-inner {
+		background-color: #084f0f;
+		padding: 0 34px;
+		display: flex;
+		justify-content: space-between;
+		border: 1px solid #000000;
+		align-items: center;
+		box-shadow: 0 2px 4px #000000;
+		animation: headerInnerMove 0.5s ease-out;
+
+		.menu-list {
+			display: flex;
+			gap: 0 60px;
+
+			.menu-item {
+				.menu-link {
+					color: #ffffff;
+					font-family: "Istok", sans-serif;
+					font-size: 14px;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.logo {
+			transform: translateY(5%);
+
+			.logo-text {
+				color: #ffffff;
+				font-family: "Lalezar", sans-serif;
+				font-size: 40px;
+				line-height: 47px;
+				cursor: default;
+			}
+		}
+
+		.reg-btn {
+			background-color: #ffffff;
+			border-radius: 8px;
+			padding: 2px 34px 2px 4px;
+			border: 4px dotted #cad6e2;
+			display: flex;
+			align-items: center;
+
+			.reg-img {
+				margin-right: 10px;
+			}
+
+			.reg-text {
+				color: #003169;
+				font-family: "Calibri", sans-serif;
+				font-weight: 700;
+				line-height: 24px;
+			}
+		}
+
+		.user-info {
+			display: flex;
+			align-items: center;
+			gap: 0 25px;
+
+			.user-info-btn {
+				padding: 4px 10px 4px 4px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				height: 30px;
+				background-color: #ffffff;
+				width: 112px;
+				cursor: pointer;
+
+				.user-info-text {
+					font-family: "Istok", sans-serif;
+					font-size: 14px;
+				}
+			}
+
+			.user-info-btn-2 {
+				padding: 8px 0;
+				justify-content: center;
+				gap: 0 12px;
+			}
+		}
+	}
+
+	@keyframes headerInnerMove {
+		from {
+			opacity: 0;
+			transform: translateY(100%) scale(75%);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(100%);
+		}
+	}
+}
