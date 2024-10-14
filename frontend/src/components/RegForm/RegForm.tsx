@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { MetaMaskBtn } from '../MetaMaskBtn/MetaMaskBtn';
 import regFormTitle from '../../assets/images/reg-form-title.jpg';
@@ -13,9 +14,14 @@ interface IRegForm {
 const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 	const [account, setAccount] = useState<string>('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [nickname, setNickname] = useState<string>('');
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-		e.preventDefault(); // предотвращает отправку формы
+	// const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+	// 	e.preventDefault(); // предотвращает отправку формы
+	// };
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		setNickname(e.target.value);
 	};
 
 	const navigate = useNavigate();
@@ -31,10 +37,21 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 					method: 'eth_requestAccounts',
 				});
 				setAccount(accounts[0]); // Устанавливаем текущий аккаунт
-				console.log(userSignIn);
-				setUserSignIn(prevState => !prevState);
-				console.log(userSignIn);
+				setUserSignIn(true);
 				navigate('/');
+
+				const response = await axios.post(
+					'http://localhost:8000/api/new_user',
+					{
+						wallet_address: accounts[0],
+						nickname: nickname,
+					},
+					{
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					}
+				);
 			} catch (error) {
 				console.error('Ошибка подключения: ', error);
 			}
@@ -45,7 +62,7 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 
 	return (
 		<div className="reg-form-container">
-			<form className="reg-form" onSubmit={handleSubmit}>
+			<form className="reg-form">
 				<NavLink className="reg-form-link" to="/">
 					<img
 						className="reg-form-title"
@@ -59,6 +76,8 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 						className="reg-form-input"
 						type="text"
 						placeholder="NICKNAME"
+						value={nickname}
+						onChange={handleInputChange}
 					/>
 				</div>
 				<MetaMaskBtn onClick={connectWallet} disabled={isLoading} />

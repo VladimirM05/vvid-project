@@ -1,5 +1,6 @@
-import { FC, useState, Suspense } from 'react';
+import { FC, useState, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 import { Main } from '@/pages/main';
 import { Games } from '@/pages/games';
 import { Questions } from '@/pages/questions';
@@ -13,6 +14,34 @@ export const App: FC = () => {
 	const [balance, setBalance] = useState<number>(0);
 	// console.log(__PLATFORM__, __ENV__);
 
+	useEffect(() => {
+		const connectWallet = async () => {
+			if (window.ethereum) {
+				try {
+					const accounts = await window.ethereum.request({
+						method: 'eth_requestAccounts',
+					});
+
+					const response = axios.put(
+						`http://localhost:8000/api/update_user/${accounts[0]}`,
+						{
+							balance: balance,
+						},
+						{
+							headers: {
+								'Content-Type': 'application/json',
+							},
+						}
+					);
+				} catch (error) {
+					console.error('Ошибка подключения: ', error);
+				}
+			} else {
+				alert('Установите MetaMask!');
+			}
+		};
+	}, [balance]);
+
 	return (
 		<Router>
 			<Routes>
@@ -20,7 +49,12 @@ export const App: FC = () => {
 					path="/"
 					element={
 						<Suspense fallback="Loading...">
-							<Main userSignIn={userSignIn} setUserSignIn={setUserSignIn} setBalance={setBalance} balance={balance}/>
+							<Main
+								userSignIn={userSignIn}
+								setUserSignIn={setUserSignIn}
+								setBalance={setBalance}
+								balance={balance}
+							/>
 						</Suspense>
 					}
 				/>
@@ -36,7 +70,7 @@ export const App: FC = () => {
 					path="/questions"
 					element={
 						<Suspense fallback="Loading...">
-							<Questions setBalance={setBalance} balance={balance}/>
+							<Questions setBalance={setBalance} balance={balance} />
 						</Suspense>
 					}
 				/>
