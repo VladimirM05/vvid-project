@@ -1,21 +1,43 @@
-import { FC, Dispatch, SetStateAction, useEffect } from "react";
+import React, { useState } from "react";
 import "./QuestionsList.pcss";
+import { faqItems } from "../../store/questArrey";
 
-interface IQuestionsList {
-	setBalance:  React.Dispatch<React.SetStateAction<number>>;
-	balance: number;
-}
+const QuestionsList: React.FC = () => {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-const QuestionsList: FC<IQuestionsList> = ({setBalance, balance}) => {
-	useEffect(() => {
-		console.log(balance)
-	}, [balance])
-	
-	return (
-		<section className='questions'>
-			<div className='questions-inner'></div>
-		</section>
-	);
+  const toggleExpand = (index: number) => {
+    if (expandedIndex === index) {
+      setExpandedIndex(null);
+    } else {
+      setExpandedIndex(index);
+    }
+  };
+
+  return (
+    <div className="faq-page">
+      <h1 className="faq-title">FAQ</h1>
+      <div className="faq-list">
+        {faqItems.map((item, index) => (
+          <div key={index} className="faq-item">
+            <div className="faq-question" onClick={() => toggleExpand(index)}>
+              <strong>{item.question}</strong>
+            </div>
+            {expandedIndex === index && (
+              <div className="faq-answer">
+                <p>{item.answer.split('\n').map((line, i) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}</p>
+                {item.imageUrl && <img src={item.imageUrl} alt="FAQ" />}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
-export { QuestionsList };
+export {QuestionsList};

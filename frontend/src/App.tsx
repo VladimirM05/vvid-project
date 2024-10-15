@@ -1,4 +1,4 @@
-import { FC, useState, Suspense, useEffect } from 'react';
+import { FC, useState, Suspense, useEffect, SetStateAction } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { Main } from '@/pages/main';
@@ -70,7 +70,7 @@ export const App: FC = () => {
 					path="/questions"
 					element={
 						<Suspense fallback="Loading...">
-							<Questions setBalance={setBalance} balance={balance} />
+							<Questions />
 						</Suspense>
 					}
 				/>
