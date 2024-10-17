@@ -1,10 +1,10 @@
-import { FC, useContext, useState, useEffect } from 'react';
+import { FC, useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { BalanceContext } from '../../pages/main/Main';
 import { UserData } from '../UserData/UserData';
 import { UserData2 } from '../UserData2/UserData2';
 import { TopPlayerItem } from '../TopSideBarFunctions/TopPlayer/TopPlayerItem';
-import profile from '../../assets/images/gandonioCat.png';
+import profile from '@/assets/images/gandonioCat.png';
 import './TopPlayersSideBar.pcss';
 import MissionHandler from "../TopSideBarFunctions/Missions/MissionsLogic/MissionHandler";
 import { weeklyMissions, dailyMissions } from "../TopSideBarFunctions/Missions/missionsData";
@@ -42,6 +42,7 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
         { id: 8, name: "Player8", balance: 650, image: profile },
         { id: 9, name: "Player9", balance: 600, image: profile },
         { id: 10, name: "Player10", balance: 550, image: profile },
+        { id: 11, name: "You", balance: 100, image: profile}
     ];
 
     const handleMissionComplete = (id: number) => {

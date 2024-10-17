@@ -7,15 +7,13 @@ interface ITopPlayerItem {
 	image: string;
 }
 
-const TopPlayerItem: FC<ITopPlayerItem> = ({ rank, name, balance, image }) => {
+export const TopPlayerItem: FC<ITopPlayerItem> = ({ rank, name, balance, image }) => {
 	return (
 		<div className="top-player-item">
-			<div className="top-player-rank">{rank}</div>
+			<span className="top-player-rank">{rank}</span>
 			<img className="top-player-image" src={image} alt={name} />
-			<div className="top-player-name">{name}</div>
-			<div className="top-player-balance">Баланс: {balance}</div>
+			<span className="top-player-name">{name}</span>
+			<span className="top-player-balance">Баланс: {balance}</span>
 		</div>
 	);
 };
-
-export { TopPlayerItem };

@@ -14,21 +14,19 @@ const QuestionsList: React.FC = () => {
   };
 
   return (
-    <div className="faq-page">
-      <h1 className="faq-title">FAQ</h1>
+    <section className="faq-page">
+      <h2 className="faq-title">FAQ</h2>
       <div className="faq-list">
         {faqItems.map((item, index) => (
           <div key={index} className="faq-item">
             <div className="faq-question" onClick={() => toggleExpand(index)}>
-              <strong>{item.question}</strong>
+              <b>{item.question}</b>
             </div>
             {expandedIndex === index && (
               <div className="faq-answer">
                 <p>{item.answer.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    <br />
-                  </React.Fragment>
+                    <span key={i}>
+                      {line}</span>
                 ))}</p>
                 {item.imageUrl && <img src={item.imageUrl} alt="FAQ" />}
               </div>
@@ -36,7 +34,7 @@ const QuestionsList: React.FC = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
