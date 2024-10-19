@@ -132,7 +132,56 @@ async def get_user(wallet_address: str):
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
 
-    
+@app.get('/api/get_user_rank/{wallet_address}')
+async def get_user_rank(wallet_address: str):
+    try:
+        # Получаем пользователя по его wallet_address
+        user = UserModel.get(UserModel.wallet_address == wallet_address)
+
+        # Получаем всех пользователей, отсортированных по балансу
+        all_users = (UserModel
+                     .select()
+                     .order_by(UserModel.balance.desc()))
+
+        # Находим позицию пользователя
+        rank = None
+        for index, top_user in enumerate(all_users):
+            if top_user.wallet_address == wallet_address:
+                rank = index + 1
+                break
+
+        # Если позиция найдена, возвращаем её
+        if rank:
+            # Если у пользователя есть nickname, показываем его, иначе используем wallet_address
+            user_identifier = user.nickname if user.nickname else user.wallet_address
+            return {user_identifier: rank}
+        else:
+            raise HTTPException(status_code=404, detail="Пользователь не найден в топе")
+
+    except UserModel.DoesNotExist:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+@app.get('/api/top_players')
+async def get_top_players():
+    try:
+        # Получаем 10 пользователей с наибольшим балансом
+        top_users = (UserModel
+                     .select()
+                     .order_by(UserModel.balance.desc())
+                     .limit(10))
+
+        # Формируем список словарей, где ключ — nickname или wallet_address, значение — balance
+        result = []
+        for user in top_users:
+            if user.nickname:
+                result.append({user.nickname: user.balance})
+            else:
+                result.append({user.wallet_address: user.balance})
+
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Ошибка получения топ игроков")
+
 
 
 if __name__ == "__main__":
