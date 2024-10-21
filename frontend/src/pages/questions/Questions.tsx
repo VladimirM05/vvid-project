@@ -4,10 +4,7 @@ import { BackMainBtn2 } from '../../components/buttons/BackMainBtn2/BackMainBtn2
 import { QuestionsList } from '../../components/QuestionsList/QuestionsList';
 import faqBackground from '../../assets/images/faq-background.jpg';
 
-const Questions: FC = () => {
-	useEffect(() => {
-		document.title = 'Вопросы';
-	}, []);
+const Questions: FC = ({}) => {
 
 	return (
 		<>

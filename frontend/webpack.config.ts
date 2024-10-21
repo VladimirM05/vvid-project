@@ -27,5 +27,24 @@ export default (env: EnvVariables) => {
 		platform: env.platform ?? 'desktop',
 	});
 
+	if (!config.module) {
+		config.module = {};
+	}
+	if (!config.module.rules) {
+		config.module.rules = [];
+	}
+
+	config.module.rules.push({
+		test: /\.(mp3|wav)$/,
+		use: [
+			{
+				loader: 'file-loader',
+				options: {
+					name: '[path][name].[ext]',
+				},
+			},
+		],
+	});
+
 	return config;
 };
