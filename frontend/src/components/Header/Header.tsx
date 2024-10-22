@@ -2,6 +2,7 @@ import { FC, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TopPlayersSideBar } from '../TopPlayersSideBar/TopPlayersSideBar';
 import { CoutCashBtn } from '../CoutCashBtn/CoutCashBtn';
+import logo from '@/assets/images/logo.png';
 import dollar from '../../assets/images/dollar.svg';
 import list from '../../assets/images/list.svg';
 import signIn from '../../assets/images/signIn.svg';
@@ -73,12 +74,12 @@ const Header: FC = () => {
 								? {
 										display: 'absolute',
 										left: '50%',
-										transform: 'translateX(10%) translateY(5%)',
+										transform: 'translateX(-5%) translateY(5%)',
 								  }
 								: { display: 'block' }
 						}
 					>
-						<span className="logo-text">Sigma Rule</span>
+						<img className="logo-img" src={logo} alt="SIGMARULES" />
 					</div>
 					{userSignIn && (
 						<div className="user-info">
