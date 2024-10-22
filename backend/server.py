@@ -9,7 +9,7 @@ def convert_image_to_base64(file):
     return base64.b64encode(file.file.read()).decode('utf-8')
 
 # Настройка базы данных SQLite
-DATABASE_URL = "C:/projects/vvid-project/Users.db"
+DATABASE_URL = "Users.db"
 db = SqliteDatabase(DATABASE_URL)
 
 # Модель данных пользователя
@@ -43,7 +43,7 @@ app = FastAPI()
 # Настройка CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Убедитесь, что это ваш фронтенд
+    allow_origins=["http://localhost:3000"],  # Убедитесь, что это ваш фронтенд
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,7 +63,7 @@ async def post_user(user: New_user):
         return {"message": f"Пользователь {user.nickname} с адрессом кошелька : {user.wallet_address} добавлен"}
 
 
-@app.post("/api/uploadfile/{wallet_address}")
+@app.post("/api/new_avatar/{wallet_address}")
 async def upload_file(wallet_address: str, file: UploadFile = File(...)):
     try:
         # Ищем пользователя по wallet_address
@@ -77,6 +77,23 @@ async def upload_file(wallet_address: str, file: UploadFile = File(...)):
         user.save()
         
         return {"message": f"Изображение успешно загружено для пользователя {wallet_address}"}
+    except UserModel.DoesNotExist:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+@app.put("/api/update_avatar/{wallet_address}")
+async def update_avatar(wallet_address: str, file: UploadFile = File(...)):
+    try:
+        # Ищем пользователя по wallet_address
+        user = UserModel.get(UserModel.wallet_address == wallet_address)
+        
+        # Преобразуем изображение в строку Base64
+        image_base64 = convert_image_to_base64(file)
+        
+        # Обновляем аватар (Base64) в базе данных
+        user.image_base64 = image_base64
+        user.save()
+        
+        return {"message": f"Аватар пользователя {wallet_address} успешно обновлен"}
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
 
@@ -115,8 +132,57 @@ async def get_user(wallet_address: str):
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
 
-    
+@app.get('/api/get_user_rank/{wallet_address}')
+async def get_user_rank(wallet_address: str):
+    try:
+        # Получаем пользователя по его wallet_address
+        user = UserModel.get(UserModel.wallet_address == wallet_address)
+
+        # Получаем всех пользователей, отсортированных по балансу
+        all_users = (UserModel
+                     .select()
+                     .order_by(UserModel.balance.desc()))
+
+        # Находим позицию пользователя
+        rank = None
+        for index, top_user in enumerate(all_users):
+            if top_user.wallet_address == wallet_address:
+                rank = index + 1
+                break
+
+        # Если позиция найдена, возвращаем её
+        if rank:
+            # Если у пользователя есть nickname, показываем его, иначе используем wallet_address
+            user_identifier = user.nickname if user.nickname else user.wallet_address
+            return {user_identifier: rank}
+        else:
+            raise HTTPException(status_code=404, detail="Пользователь не найден в топе")
+
+    except UserModel.DoesNotExist:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+@app.get('/api/top_players')
+async def get_top_players():
+    try:
+        # Получаем 10 пользователей с наибольшим балансом
+        top_users = (UserModel
+                     .select()
+                     .order_by(UserModel.balance.desc())
+                     .limit(10))
+
+        # Формируем ответ в нужном формате
+        result = []
+        for user in top_users:
+            result.append({
+                "name": user.nickname or user.wallet_address,
+                "balance": user.balance,
+                "image": user.avatar
+            })
+
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Ошибка получения топ игроков")
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
-    
+    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
