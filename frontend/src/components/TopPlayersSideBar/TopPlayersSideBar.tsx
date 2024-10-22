@@ -4,15 +4,30 @@ import { BalanceContext } from '../../pages/main/Main';
 import { UserData } from '../UserData/UserData';
 import { UserData2 } from '../UserData2/UserData2';
 import { TopPlayerItem } from '../TopSideBarFunctions/TopPlayer/TopPlayerItem';
-import profile from '../../assets/images/gandonioCat.png';
+import profile from '@/assets/images/gandonioCat.png';
 import './TopPlayersSideBar.pcss';
 import MissionHandler from "../TopSideBarFunctions/Missions/MissionsLogic/MissionHandler";
 import { weeklyMissions, dailyMissions } from "../TopSideBarFunctions/Missions/missionsData";
+import axios from 'axios';
 
 interface ITopPlayersSideBar {
     isVisible: string;
     toggleVisibility: (isVisible: string) => void;
     isAnimating: boolean;
+}
+
+interface Player {
+    name: string;
+    balance: number;
+    image: string;
+}
+
+interface UserProfileData {
+    avatar: string;
+    mail: string;
+    metaMaskAddress: string;
+    rating: number | null;
+    earnedTokens: number;
 }
 
 const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
@@ -31,18 +46,15 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
     const [weeklyMissionsState, setWeeklyMissionsState] = useState(weeklyMissions.map(mission => ({ ...mission})));
     const [dailyMissionsState, setDailyMissionsState] = useState(dailyMissions.map(mission => ({ ...mission})));
 
-    const topPlayers = [
-        { id: 1, name: "Player1", balance: balance, image: profile },
-        { id: 2, name: "Player2", balance: 950, image: profile },
-        { id: 3, name: "Player3", balance: 900, image: profile },
-        { id: 4, name: "Player4", balance: 850, image: profile },
-        { id: 5, name: "Player5", balance: 800, image: profile },
-        { id: 6, name: "Player6", balance: 750, image: profile },
-        { id: 7, name: "Player7", balance: 700, image: profile },
-        { id: 8, name: "Player8", balance: 650, image: profile },
-        { id: 9, name: "Player9", balance: 600, image: profile },
-        { id: 10, name: "Player10", balance: 550, image: profile },
-    ];
+    const [userProfileData, setUserProfileData] = useState<UserProfileData>({
+        avatar: profile,
+        mail: '',
+        metaMaskAddress: '',
+        rating: null,
+        earnedTokens: balance,
+    });
+
+    const [topPlayers, setTopPlayers] = useState<Player[]>([]);
 
     const handleMissionComplete = (id: number) => {
         const mission = [...weeklyMissionsState, ...dailyMissionsState].find(m => m.id === id);
@@ -50,6 +62,35 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
             setBalance(prevBalance => prevBalance + mission.bounty);
         }
     };
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/get_user/your_wallet_address');
+                setUserProfileData({
+                    avatar: response.data.image_base64,
+                    mail: response.data.mail,
+                    metaMaskAddress: response.data.wallet_address,
+                    rating: response.data.rating,
+                    earnedTokens: response.data.balance,
+                });
+            } catch (error) {
+                console.error('Ошибка загрузки данных профиля: ', error);
+            }
+        };
+
+        const fetchTopPlayers = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/top_players');
+                setTopPlayers(response.data);
+            } catch (error) {
+                console.error('Ошибка загрузки топ игроков: ', error);
+            }
+        };
+
+        fetchUserData();
+        fetchTopPlayers();
+    }, []);
 
     return createPortal(
         <div
@@ -70,7 +111,7 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
                             <div className="bestPlayers-container">
                                 {topPlayers.map((player, index) => (
                                     <TopPlayerItem
-                                        key={player.id}
+                                        key={index}
                                         rank={index + 1}
                                         name={player.name}
                                         balance={player.balance}
@@ -100,16 +141,16 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
                             <div className="user-profile-avatar">
                                 <img
                                     className="user-profile-avatar-img"
-                                    src={profile}
+                                    src={`data:image/png;base64,${userProfileData.avatar}`}
                                     alt="User Icon"
                                 />
                             </div>
                             <div className="user-profile-container">
-                                <UserData text="Mail" value="" />
-                                <UserData text="MetaMask address" value="" />
+                                <UserData text="Mail" value={userProfileData.mail} />
+                                <UserData text="MetaMask address" value={userProfileData.metaMaskAddress} />
                             </div>
-                            <UserData2 text="Рейтинг" value={null} />
-                            <UserData2 text="Заработано токенов" value={balance} />
+                            <UserData2 text="Рейтинг" value={userProfileData.rating} />
+                            <UserData2 text="Заработано токенов" value={userProfileData.earnedTokens} />
                         </div>
                     )}
                 </div>

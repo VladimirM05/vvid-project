@@ -4,15 +4,7 @@ import { BackMainBtn2 } from '../../components/buttons/BackMainBtn2/BackMainBtn2
 import { QuestionsList } from '../../components/QuestionsList/QuestionsList';
 import faqBackground from '../../assets/images/faq-background.jpg';
 
-interface IQuestions {
-	setBalance: React.Dispatch<React.SetStateAction<number>>;
-	balance: number;
-}
-
-const Questions: FC<IQuestions> = ({ setBalance, balance }) => {
-	useEffect(() => {
-		document.title = 'Вопросы';
-	}, []);
+const Questions: FC = ({}) => {
 
 	return (
 		<>
@@ -21,7 +13,7 @@ const Questions: FC<IQuestions> = ({ setBalance, balance }) => {
 				style={{ backgroundImage: `url(${faqBackground})` }}
 			></div>
 			<BackMainBtn2 />
-			<QuestionsList setBalance={setBalance} balance={balance} />
+			<QuestionsList />
 			<About />
 		</>
 	);
