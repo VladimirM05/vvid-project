@@ -38,50 +38,6 @@ const Header: FC = () => {
 			<header className="header">
 				<div className="header-inner">
 					{userSignIn && (
-						<ul className="menu-list">
-							<li className="menu-item">
-								<NavLink className="menu-link" to="/Games">
-									Мини-игры
-								</NavLink>
-							</li>
-							<li className="menu-item">
-								<NavLink className="menu-link" to="/Questions">
-									FAQ
-								</NavLink>
-							</li>
-							<li className="menu-item">
-								<span
-									className="menu-link"
-									onClick={() => toggleVisibility('players')}
-								>
-									Топ игроки
-								</span>
-							</li>
-							<li className="menu-item">
-								<span
-									className="menu-link"
-									onClick={() => toggleVisibility('missions')}
-								>
-									Миссии
-								</span>
-							</li>
-						</ul>
-					)}
-					<div
-						className="logo"
-						style={
-							userSignIn
-								? {
-										display: 'absolute',
-										left: '50%',
-										transform: 'translateX(-5%) translateY(5%)',
-								  }
-								: { display: 'block' }
-						}
-					>
-						<img className="logo-img" src={logo} alt="SIGMARULES" />
-					</div>
-					{userSignIn && (
 						<div className="user-info">
 							<CoutCashBtn />
 							<button
@@ -109,6 +65,31 @@ const Header: FC = () => {
 							<img className="reg-img" src={signIn} alt="Reg Button Icon" />
 							<span className="reg-text">Sign In</span>
 						</NavLink>
+					)}
+					<div className="logo">
+						<img className="logo-img" src={logo} alt="SIGMARULES" />
+					</div>
+					{userSignIn && (
+						<ul className="menu-list">
+							<NavLink className="menu-item" to="/Games">
+								<span className="menu-link">Мини-игры</span>
+							</NavLink>
+							<NavLink className="menu-item" to="/Questions">
+								<span className="menu-link">FAQ</span>
+							</NavLink>
+							<li
+								className="menu-item"
+								onClick={() => toggleVisibility('players')}
+							>
+								<span className="menu-link">Топ игроки</span>
+							</li>
+							<li
+								className="menu-item"
+								onClick={() => toggleVisibility('missions')}
+							>
+								<span className="menu-link">Миссии</span>
+							</li>
+						</ul>
 					)}
 				</div>
 			</header>

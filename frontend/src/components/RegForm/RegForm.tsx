@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { MetaMaskBtn } from '../MetaMaskBtn/MetaMaskBtn';
-import regFormTitle from '../../assets/images/reg-form-title.jpg';
+import logoText from '../../assets/images/logo-text.png';
+import logo from '../../assets/images/logo.webp';
 import './RegForm.pcss';
 
 interface IRegForm {
@@ -58,9 +59,14 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 			<form className="reg-form">
 				<NavLink className="reg-form-link" to="/">
 					<img
-						className="reg-form-title"
-						src={regFormTitle}
-						alt="Registration Form Title"
+						className="reg-form-logo"
+						src={logo}
+						alt="SIGMARULES Logo"
+					/>
+					<img
+						className="reg-form-logo-text"
+						src={logoText}
+						alt="SIGMARULES"
 					/>
 				</NavLink>
 				<MetaMaskBtn onClick={connectWallet} disabled={isLoading} />

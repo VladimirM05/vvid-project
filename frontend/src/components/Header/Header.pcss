@@ -15,11 +15,13 @@
 		background-color: #72a88d;
 		padding: 0 34px;
 		display: flex;
+		flex-direction: row-reverse;
 		justify-content: space-between;
 		border: 1px solid #000000;
 		align-items: center;
 		box-shadow: 0 2px 4px #000000;
 		animation: headerInnerMove 0.5s ease-out;
+		height: 49px;
 
 		.menu-list {
 			display: flex;
@@ -28,21 +30,23 @@
 			.menu-item {
 				background-color: #58816c;
 				border: 1px solid #000000;
-				padding: 12px 0;
+				padding: 10px 0;
 				min-width: 106px;
 				text-align: center;
+				cursor: pointer;
 
 				.menu-link {
 					color: #ffffff;
 					font-family: 'Istok', sans-serif;
 					font-size: 14px;
-					cursor: pointer;
 				}
 			}
 		}
 
 		.logo {
-			transform: translateY(5%);
+			position: absolute;
+			transform: translateX(-50%) translateY(5%);
+			left: 50%;
 		}
 
 		.reg-btn {

@@ -1,5 +1,5 @@
 export interface IFAQItem {
-    question: string;
-    answer: string;
-    imageUrl?: string;
+	question: string;
+	answer: string;
+	imageUrl?: string;
 }

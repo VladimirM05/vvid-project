@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { IBlock } from '@/interfaces/IBlock';
 import { BalanceContext } from '@/pages/main/Main';
 import { blocksArray } from '@/store/blocksArray';
-import { soundsArray } from "../../store/soundArray";
+import { soundsArray } from '../../store/soundArray';
 import pick from '../../assets/images/pick.png';
 import './ClickBtn.pcss';
 
@@ -133,7 +133,10 @@ const ClickBtn: FC = () => {
 
 		//определение звукового эффекта для текущего блока
 		const soundIndex = blockParent[blockCount].kind;
-		const sound = soundsArray[soundIndex][getRandNum(0, soundsArray[soundIndex].length - 1)];
+		const sound =
+			soundsArray[soundIndex][
+				getRandNum(0, soundsArray[soundIndex].length - 1)
+			];
 		playSound(sound.src);
 
 		// Отрисовывает элемент
@@ -210,7 +213,7 @@ const ClickBtn: FC = () => {
 			setFontSize('64px');
 		}
 		let amount = 20; // количество частиц
-		let x:any, y:any;
+		let x: any, y: any;
 		if (clientX === 0 && clientY === 0) {
 			const bbox = clickBtn?.getBoundingClientRect();
 			if (bbox) {
@@ -223,11 +226,9 @@ const ClickBtn: FC = () => {
 		}
 
 		for (let i = 0; i < amount; i++) {
-			createParticle(x+10, y+10, 'square');
+			createParticle(x + 10, y + 10, 'square');
 		}
 	};
-
-	
 
 	// Отслеживание координат мыши
 	const onMouseMove = (e: React.MouseEvent): void => {
@@ -248,37 +249,48 @@ const ClickBtn: FC = () => {
 		let delay = Math.random() * 20;
 		switch (type) {
 			case 'square':
-				if (blockParent[blockCount].kind === 1){
-					particle.style.background = `hsl(${Math.random() * 20 + 20}, 70%, 60%)`; // цвет квадратов
-					particle.style.border = '1px solid brown'; 
-				} else if (blockParent[blockCount].kind === 2){
-					particle.style.background = `hsl(${30 + Math.random() * 10 - 5}, ${100 + Math.random() * 10 - 5}%, ${30 + Math.random() * 10 - 5}%)`;
-					particle.style.border = '1px solid brown'; 
-				} else if (blockParent[blockCount].kind === 3){
+				if (blockParent[blockCount].kind === 1) {
+					particle.style.background = `hsl(${
+						Math.random() * 20 + 20
+					}, 70%, 60%)`; // цвет квадратов
+					particle.style.border = '1px solid brown';
+				} else if (blockParent[blockCount].kind === 2) {
+					particle.style.background = `hsl(${30 + Math.random() * 10 - 5}, ${
+						100 + Math.random() * 10 - 5
+					}%, ${30 + Math.random() * 10 - 5}%)`;
+					particle.style.border = '1px solid brown';
+				} else if (blockParent[blockCount].kind === 3) {
 					particle.style.background = `hsl(0, 0%, ${Math.random() * 100}%)`; // цвет квадратов
-					particle.style.border = '1px solid gray'; 
-				} else if (blockParent[blockCount].kind === 4){
-					particle.style.background = `hsl(${195 + Math.random() * 10 - 5}, ${80 + Math.random() * 10 - 5}%, ${50 + Math.random() * 10 - 5}%)`;
+					particle.style.border = '1px solid gray';
+				} else if (blockParent[blockCount].kind === 4) {
+					particle.style.background = `hsl(${195 + Math.random() * 10 - 5}, ${
+						80 + Math.random() * 10 - 5
+					}%, ${50 + Math.random() * 10 - 5}%)`;
 					particle.style.border = '1px solid white';
 				}
 				break;
 		}
 		particle.style.width = `${width}px`;
 		particle.style.height = `${height}px`;
-		const animation = particle.animate([
+		const animation = particle.animate(
+			[
+				{
+					transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,
+					opacity: 1,
+				},
+				{
+					transform: `translate(-50%, -50%) translate(${x + destinationX}px, ${
+						y + destinationY
+					}px) rotate(${rotation}deg)`,
+					opacity: 0,
+				},
+			],
 			{
-				transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,
-				opacity: 1
-			},
-			{
-				transform: `translate(-50%, -50%) translate(${x + destinationX}px, ${y + destinationY}px) rotate(${rotation}deg)`,
-				opacity: 0
+				duration: Math.random() * 1000 + 500, // длительность анимации
+				easing: 'cubic-bezier(0, .9, .57, 1)',
+				delay: delay,
 			}
-		], {
-			duration: Math.random() * 1000 + 500, // длительность анимации
-			easing: 'cubic-bezier(0, .9, .57, 1)',
-			delay: delay
-		});
+		);
 		animation.onfinish = removeParticle;
 	};
 
@@ -325,56 +337,51 @@ const ClickBtn: FC = () => {
 
 	return (
 		<section className="section-1">
-			{showSignInBtn ? (
-				<NavLink className="sign-in-link" to="/Registration">
-					<span className="sign-in-text">Sign in for play</span>
-				</NavLink>
-			) : (
-				<div
-					className="click-btn"
-					onMouseEnter={changeBtnEnter}
-					onMouseLeave={changeBtnLeave}
-					ref={changeCursor}
-				>
-					<div
-						className="click-btn-area"
-						onClick={
-							userSignIn
-								? blockClickBtn
-									? delayOnClick
-									: undefined
-								: () => setShowSignInBtn(!showSignInBtn)
-						}
-						onMouseMove={onMouseMove}
-					></div>
-					<img
-						className="click-btn-img"
-						src={blockParent[blockCount].src}
-						alt="Click Button Background"
-					/>
-					{!userSignIn ? (
-						<span className="click-btn-text">Play</span>
-					) : (
-						<>
-							<span className="click-btn-text">
-								{showClickBtnText && 'Claim'}
+			<div
+				className="click-btn"
+				onMouseEnter={changeBtnEnter}
+				onMouseLeave={changeBtnLeave}
+				ref={changeCursor}
+			>
+				<NavLink
+					className="click-btn-area"
+					onClick={
+						userSignIn
+							? blockClickBtn
+								? delayOnClick
+								: undefined
+							: () => setShowSignInBtn(!showSignInBtn)
+					}
+					onMouseMove={onMouseMove}
+					to={userSignIn ? '/' : 'Registration'}
+				></NavLink>
+				<img
+					className="click-btn-img"
+					src={blockParent[blockCount].src}
+					alt="Click Button Background"
+				/>
+				{!userSignIn ? (
+					<span className="click-btn-text">Play</span>
+				) : (
+					<>
+						<span className="click-btn-text">
+							{showClickBtnText && 'Claim'}
+						</span>
+						{isCounting && (
+							<span
+								className="count"
+								style={{
+									opacity,
+									fontSize,
+									transition: showAnimation ? 'all 0.5s ease-out' : '',
+								}}
+							>
+								{count}
 							</span>
-							{isCounting && (
-								<span
-									className="count"
-									style={{
-										opacity,
-										fontSize,
-										transition: showAnimation ? 'all 0.5s ease-out' : '',
-									}}
-								>
-									{count}
-								</span>
-							)}
-						</>
-					)}
-				</div>
-			)}
+						)}
+					</>
+				)}
+			</div>
 		</section>
 	);
 };

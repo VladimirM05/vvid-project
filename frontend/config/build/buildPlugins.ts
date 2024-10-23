@@ -20,7 +20,7 @@ export function buildPlugins({
 	const plugins: Configuration['plugins'] = [
 		new HtmlWebpackPlugin({
 			template: paths.html,
-			favicon: path.resolve(paths.public, 'favicon.ico'),
+			favicon: path.resolve(paths.public, 'favicon.svg'),
 		}),
 		new DefinePlugin({
 			__PLATFORM__: JSON.stringify(platform),
