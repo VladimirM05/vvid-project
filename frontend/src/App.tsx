@@ -9,9 +9,9 @@ import '@/assets/styles/global.pcss';
 
 export const App: FC = () => {
 	// Проверка пользователя на авторизацию
-	const [userSignIn, setUserSignIn] = useState<boolean>(false);
+	const [userSignIn, setUserSignIn] = useState<boolean>(true);
 	// Баланс пользователя
-	const [balance, setBalance] = useState<number>(0);
+	const [balance, setBalance] = useState<number>(44440);
 	// console.log(__PLATFORM__, __ENV__);
 
 	useEffect(() => {

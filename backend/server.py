@@ -43,7 +43,7 @@ app = FastAPI()
 # Настройка CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Убедитесь, что это ваш фронтенд
+    allow_origins=["http://localhost:3000"],  # Убедитесь, что это ваш фронтенд
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -132,7 +132,10 @@ async def get_user(wallet_address: str):
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
 @app.get('/api/get_user_rank/{wallet_address}')
 async def get_user_rank(wallet_address: str):
     try:
@@ -171,6 +174,7 @@ async def get_top_players():
                      .order_by(UserModel.balance.desc())
                      .limit(10))
 
+<<<<<<< HEAD
         # Формируем список словарей, где ключ — nickname или wallet_address, значение — balance
         result = []
         for user in top_users:
@@ -178,14 +182,26 @@ async def get_top_players():
                 result.append({user.nickname: user.balance})
             else:
                 result.append({user.wallet_address: user.balance})
+=======
+        # Формируем ответ в нужном формате
+        result = []
+        for user in top_users:
+            result.append({
+                "name": user.nickname or user.wallet_address,
+                "balance": user.balance,
+                "image": user.avatar
+            })
+>>>>>>> master
 
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail="Ошибка получения топ игроков")
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
-    
+    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)

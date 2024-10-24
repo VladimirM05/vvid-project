@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { MetaMaskBtn } from '../MetaMaskBtn/MetaMaskBtn';
-import regFormTitle from '../../assets/images/reg-form-title.jpg';
+import logoText from '../../assets/images/logo-text.png';
+import logo from '../../assets/images/logo.webp';
 import './RegForm.pcss';
 
 interface IRegForm {
@@ -14,16 +15,10 @@ interface IRegForm {
 const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 	const [account, setAccount] = useState<string>('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [nickname, setNickname] = useState<string>('');
 
 	// const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 	// 	e.preventDefault(); // предотвращает отправку формы
 	// };
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		setNickname(e.target.value);
-	};
-
 	const navigate = useNavigate();
 
 	const connectWallet = async () => {
@@ -44,7 +39,6 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 					'http://localhost:8000/api/new_user',
 					{
 						wallet_address: accounts[0],
-						nickname: nickname,
 					},
 					{
 						headers: {
@@ -65,21 +59,16 @@ const RegForm: FC<IRegForm> = ({ userSignIn, setUserSignIn }) => {
 			<form className="reg-form">
 				<NavLink className="reg-form-link" to="/">
 					<img
-						className="reg-form-title"
-						src={regFormTitle}
-						alt="Registration Form Title"
+						className="reg-form-logo"
+						src={logo}
+						alt="SIGMARULES Logo"
+					/>
+					<img
+						className="reg-form-logo-text"
+						src={logoText}
+						alt="SIGMARULES"
 					/>
 				</NavLink>
-
-				<div className="reg-form-input-outline">
-					<input
-						className="reg-form-input"
-						type="text"
-						placeholder="NICKNAME"
-						value={nickname}
-						onChange={handleInputChange}
-					/>
-				</div>
 				<MetaMaskBtn onClick={connectWallet} disabled={isLoading} />
 			</form>
 		</div>
