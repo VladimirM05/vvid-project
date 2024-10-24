@@ -15,7 +15,7 @@ db = SqliteDatabase(DATABASE_URL)
 # Модель данных пользователя
 class UserModel(Model):
     wallet_address = CharField(primary_key=True)
-    nickname = CharField()
+    nickname = CharField(null=True)
     balance = IntegerField(default=0)
     image_base64 = TextField(null=True)
 
@@ -31,7 +31,6 @@ class UpdateUser(BaseModel):
 # Pydantic модель для получения данных пользователяя
 class New_user(BaseModel):
     wallet_address: str
-    nickname: str
 
 
 # Создание таблиц в базе данных
@@ -54,20 +53,20 @@ app.add_middleware(
 async def post_user(user: New_user):
     # Проверяем, существует ли пользователь
     try:
-        db_user = UserModel.get(UserModel.nickname == user.nickname)
-        return {"message": f"Пользователь {user.nickname} уже существует"}
+        db_user = UserModel.get(UserModel.wallet_address == user.wallet_address)
+        return {"message": f"Пользователь с адресом кошелька {user.wallet_address} уже существует"}
     
     except UserModel.DoesNotExist:
         # Если пользователь не существует, создаем нового
-        new_user = UserModel.create(wallet_address=user.wallet_address, nickname=user.nickname)
-        return {"message": f"Пользователь {user.nickname} с адрессом кошелька : {user.wallet_address} добавлен"}
+        new_user = UserModel.create(wallet_address=user.wallet_address, nickname=user.wallet_address)
+        return {"message": f"Пользователь с адрессом кошелька : {user.wallet_address} добавлен"}
 
 
 @app.post("/api/new_avatar/{wallet_address}")
 async def upload_file(wallet_address: str, file: UploadFile = File(...)):
     try:
         # Ищем пользователя по wallet_address
-        user = UserModel.get(UserModel.wallet_address == wallet_address)
+        user = UserModel.get(UserModel.wallet_address == wallet_address.lower())
         
         # Преобразуем изображение в строку Base64
         image_base64 = convert_image_to_base64(file)
@@ -75,25 +74,8 @@ async def upload_file(wallet_address: str, file: UploadFile = File(...)):
         # Сохраняем изображение в базе данных
         user.image_base64 = image_base64
         user.save()
-        
+            
         return {"message": f"Изображение успешно загружено для пользователя {wallet_address}"}
-    except UserModel.DoesNotExist:
-        raise HTTPException(status_code=404, detail="Пользователь не найден")
-
-@app.put("/api/update_avatar/{wallet_address}")
-async def update_avatar(wallet_address: str, file: UploadFile = File(...)):
-    try:
-        # Ищем пользователя по wallet_address
-        user = UserModel.get(UserModel.wallet_address == wallet_address)
-        
-        # Преобразуем изображение в строку Base64
-        image_base64 = convert_image_to_base64(file)
-        
-        # Обновляем аватар (Base64) в базе данных
-        user.image_base64 = image_base64
-        user.save()
-        
-        return {"message": f"Аватар пользователя {wallet_address} успешно обновлен"}
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
 
@@ -132,10 +114,6 @@ async def get_user(wallet_address: str):
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> master
 @app.get('/api/get_user_rank/{wallet_address}')
 async def get_user_rank(wallet_address: str):
     try:
@@ -156,14 +134,14 @@ async def get_user_rank(wallet_address: str):
 
         # Если позиция найдена, возвращаем её
         if rank:
-            # Если у пользователя есть nickname, показываем его, иначе используем wallet_address
             user_identifier = user.nickname if user.nickname else user.wallet_address
-            return {user_identifier: rank}
+            return {rank: {user_identifier: user.balance}}
         else:
             raise HTTPException(status_code=404, detail="Пользователь не найден в топе")
 
     except UserModel.DoesNotExist:
         raise HTTPException(status_code=404, detail="Пользователь не найден")
+    
 
 @app.get('/api/top_players')
 async def get_top_players():
@@ -174,34 +152,16 @@ async def get_top_players():
                      .order_by(UserModel.balance.desc())
                      .limit(10))
 
-<<<<<<< HEAD
-        # Формируем список словарей, где ключ — nickname или wallet_address, значение — balance
-        result = []
-        for user in top_users:
-            if user.nickname:
-                result.append({user.nickname: user.balance})
-            else:
-                result.append({user.wallet_address: user.balance})
-=======
         # Формируем ответ в нужном формате
-        result = []
-        for user in top_users:
-            result.append({
-                "name": user.nickname or user.wallet_address,
-                "balance": user.balance,
-                "image": user.avatar
-            })
->>>>>>> master
+        result = {}
+        for index, user in enumerate(top_users, start=1):
+            user_identifier = user.nickname or user.wallet_address
+            result[index] = {user_identifier: user.balance}
 
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail="Ошибка получения топ игроков")
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)

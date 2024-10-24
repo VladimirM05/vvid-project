@@ -8,6 +8,8 @@ import profile from '@/assets/images/gandonioCat.png';
 import './TopPlayersSideBar.pcss';
 import MissionHandler from "../TopSideBarFunctions/Missions/MissionsLogic/MissionHandler";
 import { weeklyMissions, dailyMissions } from "../TopSideBarFunctions/Missions/missionsData";
+import ImageUploader from '../ImageUploader/ImageUploader';
+
 import axios from 'axios';
 
 interface ITopPlayersSideBar {
@@ -63,6 +65,18 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
         }
     };
 
+    const handleAvatarChange = (newAvatar: string) => {
+        setUserProfileData(prevData => ({
+            ...prevData,
+            avatar: newAvatar,
+        }));
+    };
+
+    const handleConfirm = () => {
+        // Здесь можно добавить логику для подтверждения изменений
+        console.log('Изменения подтверждены');
+    };
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -82,7 +96,11 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
         const fetchTopPlayers = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/top_players');
-                setTopPlayers(response.data);
+                if (Array.isArray(response.data)) {
+                    setTopPlayers(response.data);
+                } else {
+                    console.error('Ошибка: данные топ игроков не являются массивом');
+                }
             } catch (error) {
                 console.error('Ошибка загрузки топ игроков: ', error);
             }
@@ -109,7 +127,7 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
                         <div>
                             <h4 className="user-aside-title">Топ Игроки</h4>
                             <div className="bestPlayers-container">
-                                {topPlayers.map((player, index) => (
+                                {Array.isArray(topPlayers) && topPlayers.map((player, index) => (
                                     <TopPlayerItem
                                         key={index}
                                         rank={index + 1}
@@ -139,18 +157,16 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
                     {isVisible === 'profile' && (
                         <div className="user-profile">
                             <div className="user-profile-avatar">
-                                <img
-                                    className="user-profile-avatar-img"
-                                    src={`data:image/png;base64,${userProfileData.avatar}`}
-                                    alt="User Icon"
-                                />
-                            </div>
-                            <div className="user-profile-container">
-                                <UserData text="Mail" value={userProfileData.mail} />
-                                <UserData text="MetaMask address" value={userProfileData.metaMaskAddress} />
+                            <ImageUploader
+                              onImageChange={handleAvatarChange}
+                              onConfirm={handleConfirm}
+                              walletAddress={userProfileData.metaMaskAddress}
+                              balance={balance}               // Передаем balance
+                              setBalance={setBalance}         // Передаем setBalance
+                            />
                             </div>
                             <UserData2 text="Рейтинг" value={userProfileData.rating} />
-                            <UserData2 text="Заработано токенов" value={userProfileData.earnedTokens} />
+                            <UserData2 text="Баланс" value={userProfileData.earnedTokens} />
                         </div>
                     )}
                 </div>
