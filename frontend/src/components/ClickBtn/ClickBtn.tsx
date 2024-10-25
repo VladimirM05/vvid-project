@@ -337,51 +337,52 @@ const ClickBtn: FC = () => {
 
 	return (
 		<section className="section-1">
-			<div
-				className="click-btn"
-				onMouseEnter={changeBtnEnter}
-				onMouseLeave={changeBtnLeave}
-				ref={changeCursor}
-			>
-				<NavLink
-					className="click-btn-area"
-					onClick={
-						userSignIn
-							? blockClickBtn
-								? delayOnClick
-								: undefined
-							: () => setShowSignInBtn(!showSignInBtn)
-					}
-					onMouseMove={onMouseMove}
-					to={userSignIn ? '/' : 'Registration'}
-				></NavLink>
-				<img
-					className="click-btn-img"
-					src={blockParent[blockCount].src}
-					alt="Click Button Background"
-				/>
-				{!userSignIn ? (
-					<span className="click-btn-text">Play</span>
-				) : (
-					<>
-						<span className="click-btn-text">
-							{showClickBtnText && 'Claim'}
-						</span>
-						{isCounting && (
-							<span
-								className="count"
-								style={{
-									opacity,
-									fontSize,
-									transition: showAnimation ? 'all 0.5s ease-out' : '',
-								}}
-							>
-								{count}
+			<NavLink to={userSignIn ? '/' : 'Registration'}>
+				<div
+					className="click-btn"
+					onMouseEnter={changeBtnEnter}
+					onMouseLeave={changeBtnLeave}
+					ref={changeCursor}
+				>
+					<div
+						className="click-btn-area"
+						onClick={
+							userSignIn
+								? blockClickBtn
+									? delayOnClick
+									: undefined
+								: () => setShowSignInBtn(!showSignInBtn)
+						}
+						onMouseMove={onMouseMove}
+					></div>
+					<img
+						className="click-btn-img"
+						src={blockParent[blockCount].src}
+						alt="Click Button Background"
+					/>
+					{!userSignIn ? (
+						<span className="click-btn-text">Play</span>
+					) : (
+						<>
+							<span className="click-btn-text">
+								{showClickBtnText && 'Claim'}
 							</span>
-						)}
-					</>
-				)}
-			</div>
+							{isCounting && (
+								<span
+									className="count"
+									style={{
+										opacity,
+										fontSize,
+										transition: showAnimation ? 'all 0.5s ease-out' : '',
+									}}
+								>
+									{count}
+								</span>
+							)}
+						</>
+					)}
+				</div>
+			</NavLink>
 		</section>
 	);
 };

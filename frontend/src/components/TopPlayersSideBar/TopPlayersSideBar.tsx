@@ -155,19 +155,21 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
                         </div>
                     )}
                     {isVisible === 'profile' && (
-                        <div className="user-profile">
+                        <><h4 className="user-aside-title">Профиль</h4><div className="user-profile">
                             <div className="user-profile-avatar">
-                            <ImageUploader
-                              onImageChange={handleAvatarChange}
-                              onConfirm={handleConfirm}
-                              walletAddress={userProfileData.metaMaskAddress}
-                              balance={balance}               // Передаем balance
-                              setBalance={setBalance}         // Передаем setBalance
-                            />
+                                <div className="image-uploader-wrapper">
+                                    <ImageUploader
+                                        onImageChange={handleAvatarChange}
+                                        onConfirm={handleConfirm}
+                                        walletAddress={userProfileData.metaMaskAddress}
+                                        balance={balance}
+                                        setBalance={setBalance} 
+                                    />
+                                </div>
                             </div>
                             <UserData2 text="Рейтинг" value={userProfileData.rating} />
                             <UserData2 text="Баланс" value={userProfileData.earnedTokens} />
-                        </div>
+                        </div></>
                     )}
                 </div>
             </aside>

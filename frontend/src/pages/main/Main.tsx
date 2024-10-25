@@ -14,6 +14,8 @@ interface IBalanceContext {
 	setBalance: Dispatch<SetStateAction<number>>;
 	userSignIn: boolean;
 	setUserSignIn: Dispatch<SetStateAction<boolean>>;
+	walletAddress: string | null;
+    setWalletAddress: (value: string | null) => void;
 }
 
 export const BalanceContext = React.createContext<IBalanceContext | null>(null);
@@ -25,12 +27,16 @@ interface IMain {
 	setBalance: React.Dispatch<React.SetStateAction<number>>;
 	nickname: string | null;
 	avatar: string | null;
+	walletAddress: string | null;
+    setWalletAddress: (value: string | null) => void;
   }
 
-const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance, nickname, avatar}) => {
+  export const UserContext = React.createContext<IBalanceContext | null>(null);
+
+const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance, nickname, avatar, walletAddress, setWalletAddress}) => {
 	return (
 		<BalanceContext.Provider
-			value={{ balance, setBalance, userSignIn, setUserSignIn }}
+			value={{ balance, setBalance, userSignIn, setUserSignIn, walletAddress,  setWalletAddress}}
 		>
 			<div
 				className="wallpaper"

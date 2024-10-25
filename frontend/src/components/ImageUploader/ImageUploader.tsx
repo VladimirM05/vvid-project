@@ -4,18 +4,17 @@ import axios from 'axios';
 interface ImageUploaderProps {
   onImageChange: (newAvatar: string) => void;
   onConfirm: () => void;
-  balance: number; // Добавим баланс, чтобы передавать его как пропс
-  setBalance: (balance: number) => void; // Функция для обновления баланса
+  balance: number;
+  setBalance: (balance: number) => void;
   walletAddress: string; 
 }   
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageChange, onConfirm, balance, setBalance, walletAddress}) => {
-  const [image, setImage] = useState<string | null>(null); // Base64 изображение
+  const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isConfirmButtonVisible, setIsConfirmButtonVisible] = useState<boolean>(false);
   const [account, setAccount] = useState<string>("");
 
-  // Подключение к MetaMask и получение аккаунта
   useEffect(() => {
     const connectWallet = async () => {
       if (window.ethereum) {
@@ -100,7 +99,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageChange, onConfirm,
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div
         style={{
           width: '200px',
