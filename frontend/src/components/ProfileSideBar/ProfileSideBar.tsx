@@ -1,21 +1,19 @@
 import { FC, useContext, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { BalanceContext } from '../../pages/main/Main';
-import { UserData } from '../UserData/UserData';
+import axios from 'axios';
 import { UserData2 } from '../UserData2/UserData2';
 import { TopPlayerItem } from '../TopSideBarFunctions/TopPlayer/TopPlayerItem';
-import profile from '@/assets/images/gandonioCat.png';
-import './TopPlayersSideBar.pcss';
 import MissionHandler from "../TopSideBarFunctions/Missions/MissionsLogic/MissionHandler";
 import { weeklyMissions, dailyMissions } from "../TopSideBarFunctions/Missions/missionsData";
 import ImageUploader from '../ImageUploader/ImageUploader';
+import './profile-side-bar.pcss';
 
-import axios from 'axios';
-
-interface ITopPlayersSideBar {
+interface IProfileSideBar {
     isVisible: string;
     toggleVisibility: (isVisible: string) => void;
     isAnimating: boolean;
+    walletAddress: string | null;
 }
 
 interface Player {
@@ -26,34 +24,32 @@ interface Player {
 
 interface UserProfileData {
     avatar: string;
-    mail: string;
     metaMaskAddress: string;
-    rating: number | null;
-    earnedTokens: number;
+    rating: number;
+    nickname: string;
 }
 
-const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
+const TopPlayersSideBar: FC<IProfileSideBar> = ({
     isVisible,
     toggleVisibility,
     isAnimating,
+    walletAddress,
 }) => {
-    // Передача данных из Main с помощью хука useContext
     const context = useContext(BalanceContext);
-    // Если Header будет использоваться вне BalanceContext.Provider, появится данная ошибка, которая укажет на ошибку использования
     if (!context) {
         throw new Error('Header must be used within a BalanceProvider');
     }
-    const { balance, setBalance } = context;
 
-    const [weeklyMissionsState, setWeeklyMissionsState] = useState(weeklyMissions.map(mission => ({ ...mission})));
-    const [dailyMissionsState, setDailyMissionsState] = useState(dailyMissions.map(mission => ({ ...mission})));
+    const { balance, setBalance } = context;
+    const [userWalletAddress, setUserWalletAddress] = useState(walletAddress);
+    const [weeklyMissionsState, setWeeklyMissionsState] = useState(weeklyMissions.map(mission => ({ ...mission })));
+    const [dailyMissionsState, setDailyMissionsState] = useState(dailyMissions.map(mission => ({ ...mission })));
 
     const [userProfileData, setUserProfileData] = useState<UserProfileData>({
-        avatar: profile,
-        mail: '',
+        avatar: "",
         metaMaskAddress: '',
-        rating: null,
-        earnedTokens: balance,
+        rating: 0,
+        nickname: "",
     });
 
     const [topPlayers, setTopPlayers] = useState<Player[]>([]);
@@ -73,21 +69,42 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
     };
 
     const handleConfirm = () => {
-        // Здесь можно добавить логику для подтверждения изменений
         console.log('Изменения подтверждены');
     };
 
     useEffect(() => {
+        const connectWallet = async () => {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    if (accounts && accounts.length > 0) {
+                        setUserWalletAddress(accounts[0]);
+                    }
+                } catch (error) {
+                    console.error('Ошибка подключения или получения данных пользователя: ', error);
+                }
+            } else {
+                alert('Установите MetaMask!');
+            }
+        };
+
+        connectWallet();
+    }, []);
+
+    useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/get_user/your_wallet_address');
-                setUserProfileData({
-                    avatar: response.data.image_base64,
-                    mail: response.data.mail,
-                    metaMaskAddress: response.data.wallet_address,
-                    rating: response.data.rating,
-                    earnedTokens: response.data.balance,
-                });
+                const response = await axios.get(`http://localhost:8000/api/get_user/${userWalletAddress}`);
+                if (response.data) {
+                    setUserProfileData({
+                        avatar: response.data.image_base64 || "",
+                        metaMaskAddress: response.data.wallet_address,
+                        rating: response.data.rating || 0,
+                        nickname: response.data.nickname || "",
+                    });
+                } else {
+                    console.error('Ошибка: данные пользователя не найдены');
+                }
             } catch (error) {
                 console.error('Ошибка загрузки данных профиля: ', error);
             }
@@ -96,10 +113,20 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
         const fetchTopPlayers = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/top_players');
-                if (Array.isArray(response.data)) {
-                    setTopPlayers(response.data);
+                if (response.data) {
+                    const formattedTopPlayers = Object.keys(response.data).map(rank => {
+                        const player = response.data[rank];
+                        const playerName = Object.keys(player)[0];
+                        return {
+                            rank: parseInt(rank, 10),
+                            name: playerName,
+                            balance: player[playerName],
+                            image: '' // или добавьте реальный путь к изображению, если доступен
+                        };
+                    });
+                    setTopPlayers(formattedTopPlayers);
                 } else {
-                    console.error('Ошибка: данные топ игроков не являются массивом');
+                    console.error('Ошибка: данные топ игроков не найдены');
                 }
             } catch (error) {
                 console.error('Ошибка загрузки топ игроков: ', error);
@@ -108,20 +135,31 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
 
         fetchUserData();
         fetchTopPlayers();
-    }, []);
+    }, [userWalletAddress]);
+
+    const sendRequestDatabase = async () => {
+        try {
+            await axios.put(
+                `http://localhost:8000/api/update_user/${userWalletAddress}`,
+                {
+                    nickname: userProfileData.nickname,
+                },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                },
+            );
+            console.log(userWalletAddress);
+        } catch (error) {
+            console.error('Ошибка при обновлении данных пользователя: ', error);
+        }
+    };
 
     return createPortal(
         <div
-            className={
-                isAnimating
-                    ? 'user-aside-container user-aside-container-hide'
-                    : 'user-aside-container'
-            }
+            className={isAnimating ? 'user-aside-container user-aside-container-hide' : 'user-aside-container'}
         >
             <div className="screen-filter" onClick={() => toggleVisibility('')}></div>
-            <aside
-                className={isAnimating ? 'user-aside user-aside-hide' : 'user-aside'}
-            >
+            <aside className={isAnimating ? 'user-aside user-aside-hide' : 'user-aside'}>
                 <div className="user-aside-inner">
                     {isVisible === 'players' && (
                         <div>
@@ -157,16 +195,24 @@ const TopPlayersSideBar: FC<ITopPlayersSideBar> = ({
                     {isVisible === 'profile' && (
                         <div className="user-profile">
                             <div className="user-profile-avatar">
-                            <ImageUploader
-                              onImageChange={handleAvatarChange}
-                              onConfirm={handleConfirm}
-                              walletAddress={userProfileData.metaMaskAddress}
-                              balance={balance}               // Передаем balance
-                              setBalance={setBalance}         // Передаем setBalance
-                            />
+                                <ImageUploader
+                                    onImageChange={handleAvatarChange}
+                                    onConfirm={handleConfirm}
+                                    walletAddress={userProfileData.metaMaskAddress}
+                                    balance={balance}
+                                    setBalance={setBalance}
+                                />
                             </div>
                             <UserData2 text="Рейтинг" value={userProfileData.rating} />
-                            <UserData2 text="Баланс" value={userProfileData.earnedTokens} />
+                            <UserData2 text="Баланс" value={balance} />
+                            <div className="user-nickname-container">
+                                <div className="user-nickname">
+                                    <span className="user-nickname-text">Имя пользователя</span>
+                                    <input type="text" className="user-nickname-input" value={userProfileData.nickname} onChange={(e) => setUserProfileData({ ...userProfileData, nickname: e.target.value })}
+                                    />
+                                </div>
+                                <button className="user-info-btn" onClick={sendRequestDatabase}>Подтвердить</button>
+                            </div>
                         </div>
                     )}
                 </div>

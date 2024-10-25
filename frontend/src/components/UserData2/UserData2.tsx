@@ -3,7 +3,7 @@ import "./UserData2.pcss";
 
 interface IUserData2 {
 	text: string;
-	value: number | null;
+	value: string | number;
 }
 
 const UserData2: FC<IUserData2> = ({ text, value }) => {

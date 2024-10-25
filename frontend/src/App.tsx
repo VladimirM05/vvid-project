@@ -115,8 +115,7 @@ export const App: FC = () => {
 								setUserSignIn={setUserSignIn}
 								setBalance={setBalance}
 								balance={balance}
-								nickname={nickname}  // Передаем никнейм
-								avatar={avatar}      // Передаем аватар
+								walletAddress={walletAddress}
 							/>
 						</Suspense>
 					}

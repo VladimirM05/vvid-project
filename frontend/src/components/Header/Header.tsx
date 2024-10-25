@@ -1,6 +1,6 @@
 import { FC, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { TopPlayersSideBar } from '../TopPlayersSideBar/TopPlayersSideBar';
+import { TopPlayersSideBar } from '../ProfileSideBar/ProfileSideBar';
 import { CoutCashBtn } from '../CoutCashBtn/CoutCashBtn';
 import logo from '@/assets/images/logo.png';
 import dollar from '../../assets/images/dollar.svg';
@@ -9,7 +9,11 @@ import signIn from '../../assets/images/signIn.svg';
 import { BalanceContext } from '../../pages/main/Main';
 import './Header.pcss';
 
-const Header: FC = () => {
+interface IHeader {
+	walletAddress: string | null;
+}
+
+const Header: FC<IHeader> = ({walletAddress}) => {
 	// Передача данных из Main с помощью хука useContext
 	const context = useContext(BalanceContext);
 	// Если Header будет использоваться вне BalanceContext.Provider, появится данная ошибка, которая укажет на ошибку использования
@@ -98,6 +102,7 @@ const Header: FC = () => {
 					isVisible={isVisible}
 					toggleVisibility={toggleVisibility}
 					isAnimating={isAnimating}
+					walletAddress={walletAddress}
 				/>
 			)}
 		</>

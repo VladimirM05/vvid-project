@@ -23,11 +23,9 @@ interface IMain {
 	setUserSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 	balance: number;
 	setBalance: React.Dispatch<React.SetStateAction<number>>;
-	nickname: string | null;
-	avatar: string | null;
+	walletAddress: string | null;
   }
-
-const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance, nickname, avatar}) => {
+const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance, walletAddress}) => {
 	return (
 		<BalanceContext.Provider
 			value={{ balance, setBalance, userSignIn, setUserSignIn }}
@@ -36,7 +34,7 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance, nickn
 				className="wallpaper"
 				style={{ backgroundImage: `url(${background})` }}
 			></div>
-			<Header />
+			<Header walletAddress={walletAddress}/>
 			<main className="main">
 				<ScrollToTop />
 				<ClickBtn />
