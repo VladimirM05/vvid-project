@@ -116,12 +116,11 @@ const TopPlayersSideBar: FC<IProfileSideBar> = ({
                 if (response.data) {
                     const formattedTopPlayers = Object.keys(response.data).map(rank => {
                         const player = response.data[rank];
-                        const playerName = Object.keys(player)[0];
                         return {
                             rank: parseInt(rank, 10),
-                            name: playerName,
-                            balance: player[playerName],
-                            image: '' // или добавьте реальный путь к изображению, если доступен
+                            name: player.name,
+                            balance: player.balance,
+                            image: player.image_base64 ? `data:image/png;base64,${player.image_base64}` : '' // Преобразуем Base64 в формат для изображения
                         };
                     });
                     setTopPlayers(formattedTopPlayers);

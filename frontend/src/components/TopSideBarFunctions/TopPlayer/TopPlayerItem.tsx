@@ -1,19 +1,21 @@
 import { FC } from "react";
 
-interface ITopPlayerItem {
-	rank: number;
-	name: string;
-	balance: number;
-	image: string;
+interface TopPlayerItemProps {
+    rank: number;
+    name: string;
+    balance: number;
+    image: string; // Пропс для аватарки
 }
 
-export const TopPlayerItem: FC<ITopPlayerItem> = ({ rank, name, balance, image }) => {
-	return (
-		<div className="top-player-item">
-			<span className="top-player-rank">{rank}</span>
-			<img className="top-player-image" src={image} alt={name} />
-			<span className="top-player-name">{name}</span>
-			<span className="top-player-balance">Баланс: {balance}</span>
-		</div>
-	);
+export const TopPlayerItem: FC<TopPlayerItemProps> = ({ rank, name, balance, image }) => {
+    return (
+        <div className="top-player-item">
+            <span className="player-rank">{rank}</span>
+            <img src={image} alt={`${name}'s avatar`} className="player-avatar" />
+            <div className="player-info">
+                <span className="player-name">{name}</span>
+                <span className="player-balance">Баланс: {balance}</span>
+            </div>
+        </div>
+    );
 };

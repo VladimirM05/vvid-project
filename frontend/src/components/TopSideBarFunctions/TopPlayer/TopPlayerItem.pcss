@@ -1,7 +1,7 @@
 .top-player-item {
 	display: flex;
 	align-items: center;
-	padding: 12px;
+	padding: 10px;
 	border-bottom: 1px solid #ddd;
 	background-color: #f5f5f5;
 }
@@ -18,12 +18,20 @@
 	margin-right: 16px;
 }
 
-.top-player-name {
-	font-weight: bold;
+.player-name {
+    font-weight: bold;
+    margin-bottom: 5px; /* Добавляем немного отступа между именем и балансом */
 }
 
 .top-player-balance {
 	color: #555;
 	font-size: 14px;
 	margin-left: 16px; 
+}
+
+.player-avatar {
+    width: 30px;  /* Ширина аватарки */
+    height: 30px; /* Высота аватарки */
+    border-radius: 50%; /* Закругляем края */
+    object-fit: cover; /* Сохраняем соотношение сторон */
 }
