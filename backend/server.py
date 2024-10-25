@@ -156,7 +156,11 @@ async def get_top_players():
         result = {}
         for index, user in enumerate(top_users, start=1):
             user_identifier = user.nickname or user.wallet_address
-            result[index] = {user_identifier: user.balance}
+            result[index] = {
+                'name': user_identifier,
+                'balance': user.balance,
+                'image_base64': user.image_base64  # Добавляем аватар
+            }
 
         return result
     except Exception as e:

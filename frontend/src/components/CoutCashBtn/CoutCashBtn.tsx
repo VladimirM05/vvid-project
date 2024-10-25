@@ -41,7 +41,7 @@ const CoutCashBtn: FC = () => {
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value;
         setAmount(value);
-        if (Number(value) >= 10 && balance >= Number(value)) {
+        if (Number(value) >= 1000 && balance >= Number(value)) {
             setIsConfirmButtonVisible(true);
         } else {
             setIsConfirmButtonVisible(false);

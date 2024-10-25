@@ -1,0 +1,204 @@
+.user-aside-container {
+	display: flex;
+	position: fixed;
+	height: 100vh;
+	top: 0;
+	width: 100vw;
+	z-index: 50;
+	animation: asideFilterVisible ease-out 0.3s;
+	background-color: rgba(0, 0, 0, 0.3);
+
+	.user-aside {
+		width: 280px;
+		height: 100vh;
+		background-color: #ffffff;
+		animation: moveSideBar ease-out 0.2s;
+		transform: translateX(0);
+
+		.user-aside-inner {
+			.user-aside-title {
+				font-family: "Lalezar", sans-serif;
+				font-size: 24px;
+				display: flex;
+				justify-content: center;
+			}
+
+			.missions-container {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				padding: 12px;
+
+				.missions-section {
+					.missions-section-title {
+						font-family: "Lalezar", sans-serif;
+						font-size: 20px;
+						margin-bottom: 8px;
+						border-bottom: 2px solid #000;
+						padding-bottom: 4px;
+					}
+
+					.missions-list {
+						list-style-type: none;
+						padding: 0;
+
+						.mission-item {
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							margin-bottom: 12px;
+							padding: 12px;
+							background-color: #f9f9f9;
+							border-radius: 8px;
+							box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+							.mission-description {
+								font-size: 14px;
+								color: #555;
+							}
+
+							.mission-bounty {
+								font-size: 14px;
+								color: #007bff;
+								font-weight: bold;
+							}
+
+						}
+					}
+				}
+			}
+
+			.user-profile {
+				display: flex;
+				gap: 12px;
+				padding: 12px;
+				flex-wrap: wrap;
+
+				.user-profile-avatar {
+					margin-bottom: 12px;
+					cursor: pointer;
+
+					.user-profile-avatar-img {
+						height: 92px;
+						width: 92px;
+					}
+					.image-uploader-wrapper {
+						border: 2px solid #000;
+						padding: 10px;
+						border-radius: 5px; 
+						box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+						display: inline-block; 
+					}
+				}
+			}
+
+			.user-profile-container {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				flex: 1;
+			}
+		}
+
+		.top-players-container {
+			display: flex;
+			flex-direction: column;
+			gap: 20px; 
+		}
+		
+		.top-player-item {
+			display: flex;
+			align-items: center;
+			padding: 12px;
+			border-bottom: 1px solid #ddd;
+			background-color: #f5f5f5;
+		}
+		
+		.top-player-rank {
+			margin-right: 16px;
+			font-weight: bold;
+		}
+		
+		.top-player-image {
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+			margin-right: 16px;
+			object-fit: cover;
+		}
+		
+		.top-player-name {
+			font-weight: bold;
+			margin-right: auto;
+			color: red;
+		}
+		
+		.top-player-balance {
+			color: #555;
+			font-size: 14px;
+			margin-left: 16px;
+		}
+		
+		.player-avatar {
+			width: 60px;  
+			height: 60px;
+			border-radius: 20%; 
+			object-fit: cover; 
+		}
+	}
+
+	.user-aside-hide {
+		animation: hideSideBar ease-out 0.2s;
+		transform: translateX(100%);
+	}
+
+	@keyframes moveSideBar {
+		0% {
+			transform: translateX(20%) scale(80%);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0) scale(100%);
+			opacity: 1;
+		}
+	}
+
+	@keyframes hideSideBar {
+		0% {
+			transform: translateX(0) scale(100%);
+			opacity: 1;
+		}
+		100% {
+			transform: translateX(20%) scale(80%);
+			opacity: 0;
+		}
+	}
+
+	.screen-filter {
+		height: 100vh;
+		width: calc(100vw - 280px);
+	}
+}
+
+@keyframes asideFilterVisible {
+	0% {
+		background-color: transparent;
+	}
+	100% {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+}
+
+.user-aside-container-hide {
+	animation: asideFilterUnVisible 0.3s ease-out;
+	background-color: transparent;
+}
+
+@keyframes asideFilterUnVisible {
+	0% {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	100% {
+		background-color: transparent;
+	}
+}

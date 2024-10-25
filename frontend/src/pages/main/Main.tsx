@@ -42,7 +42,7 @@ const Main: FC<IMain> = ({ userSignIn, setUserSignIn, setBalance, balance, nickn
 				className="wallpaper"
 				style={{ backgroundImage: `url(${background})` }}
 			></div>
-			<Header />
+			<Header walletAddress={walletAddress}/>
 			<main className="main">
 				<ScrollToTop />
 				<ClickBtn />
